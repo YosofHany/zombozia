@@ -1,0 +1,38 @@
+<svg width="200" height="200">
+<rect
+x="3"
+y="3"
+rx="47"
+ry="47"
+height = "194"
+width = "194"
+stroke = "#379b19ff"
+stroke-width="6"
+fill = "#22aa00"/>
+<line x1="134" x2="180" y1="60" y2="129"
+stroke = "#c91f08"
+stroke-width="7"
+ />
+ <line x1="180" x2="134" y1="60" y2="120"
+stroke = "#c91f08"
+stroke-width="7"
+ />
+
+
+<line x1="86" x2="30" y1="58" y2="120"
+stroke = "#881122"
+stroke-width="11"
+ />
+<line x1="34" x2="89" y1="56" y2="118"
+stroke = "#881122"
+stroke-width="11"
+ />
+
+
+<polygon points="110 167 121 149 100 148" stroke="white" fill="white" />
+<line x1="87" x2="160" y1="147" y2="150"
+stroke = "#c91f08"
+stroke-width="8"
+ />
+
+</svg>

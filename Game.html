@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+ <head>
+ <title>
+ Lite
+ </title>
+ </head>
+ <style>
+    body{background-color: black;color: #999999;font-size: 30px;}
+    div{text-align: center;display: inline-block;position: relative;}
+    .cornerCanv{text-align: center;display:inline-block;position: absolute;}
+    .lineCanv_L{text-align: center;display:inline-block;position: absolute;}
+    .lineCanv_R{text-align: center;display:inline-block;position: absolute;}
+    .c_img{}
+ </style>
+ <style id="CSS1"></style>
+ <style id="CSS2"></style>
+ <style id="CSS3"></style>
+ <style id="CSS4"></style>
+ <style id="CSS5"></style>
+
+ <body>
+  <div class="S2" id="wtf" style="display:block;"> 
+    <div class="corner" style="display:inline-block;">
+     <div class="cornerCanv" style="top:0px;left: 0px;">
+      <img src="LITE_F/gameFiles/c_TL.png" style="width: 100%;height: 100%;">
+     </div> 
+
+<div class="lineCanv_L" style="top: 0px;">
+   <img src="LITE_F/gameFiles/line2.png" style="width: 100%;height: 100%;">
+  </div>
+
+     <div class="cornerCanv" style="top:0px;right:8px;">
+      <img src="LITE_F/gameFiles/b7.png" style="width: 100%;height: 100%;">
+     </div>
+    </div>
+    <div class="corner" style="display:inline-block;">
+     <div class="cornerCanv" style="top:0px;right: 0px;">
+      <img src="LITE_F/gameFiles/c_TR.png" style="width: 100%;height: 100%;">
+     </div>
+     <div class="lineCanv_R" style="top: 0px;">
+   <img src="LITE_F/gameFiles/line2.png" style="width: 100%;height: 100%;">
+  </div>
+
+     <div class="cornerCanv" style="top:0px;left: 8px;">
+      <img src="LITE_F/gameFiles/b2.png" style="width: 100%;height: 100%;">
+     </div>
+    </div>
+  </div>
+
+  <div class="S1" style="display: block;"> 
+   <div style="position: absolute;left:9px" class="side">
+<div class="cornerCanv" style="top: -16px;left: 0px;">
+   <img src="LITE_F/gameFiles/b3.png" style="width: 100%;height: 100%;"></div>
+   <div class="cornerCanv" style="bottom: -11px;left: 0px;">
+   <img src="LITE_F/gameFiles/b8.png" style="width: 100%;height: 100%;"></div>
+   </div>
+
+
+
+   <div style="height: 99%; width: 60%;vertical-align:middle;">
+<a href="./LITE_F/LITE.html">
+<div class="select" id="se1" >play</div></a>
+<br><br>
+<div class="select" id="se2">settings</div>
+<br><br>
+<div class="select" id="se3">account</div>
+<br><br>
+<div class="select" id="se4">quit</div>
+
+
+
+   </div>
+
+
+
+   <div style="position:absolute;right:9px;" class="side">
+<div class="cornerCanv" style="top: -16px;right: 0px;">
+   <img src="LITE_F/gameFiles/b6.png" style="width: 100%;height: 100%;">
+  </div>
+  <div class="cornerCanv" style="bottom: -11px;right: 0px;">
+   <img src="LITE_F/gameFiles/b1.png" style="width: 100%;height: 100%;">
+  </div>
+   </div>
+  </div>
+
+  <div class="S2" style="display: block;">
+
+ <div class="corner" style="display:inline-block;text-align: center;">
+  <div class="cornerCanv" style="bottom: 0px;left: 0px;">
+   <img src="LITE_F/gameFiles/c_BL.png" style="width: 100%;height: 100%;">
+  </div>
+
+  <div class="lineCanv_L" style="bottom: 0px;">
+   <img src="LITE_F/gameFiles/line.png" style="width: 100%;height: 100%;">
+  </div>
+
+  <div class="cornerCanv" style="bottom: 0px;right: 8px;">
+   <img src="LITE_F/gameFiles/b4.png" style="width: 100%;height: 100%;">
+  </div>
+ </div>
+
+ <div class="corner" style="display:inline-block;text-align: center;">
+  <div class="cornerCanv" style="bottom:0px;right: 0px;text-align: center;">
+    <img src="LITE_F/gameFiles/c_BR.png" style="width: 100%;height: 100%;">
+  </div>
+  <div class="lineCanv_R" style="bottom: 0px;">
+   <img src="LITE_F/gameFiles/line.png" style="width: 100%;height: 100%;">
+  </div>
+  <div class="cornerCanv" style="bottom:0px;left: 8px;">
+    <img src="LITE_F/gameFiles/b5.png" style="width: 100%;height: 100%;">
+  </div>
+ </div>
+
+  </div>
+ </body>
+
+
+
+
+
+<script src="LITE_F/gameFiles/code/Button.js"></script>
+
+  <script>
+   var hi = window.innerHeight;
+   var wid= window.innerWidth;
+   var CSS1=document.getElementById("CSS1");
+   var CSS2=document.getElementById("CSS2");
+   var CSS3=document.getElementById("CSS3");
+   var CSS4=document.getElementById("CSS4");
+   var CSS5=document.getElementById("CSS5");
+  var s = (window.innerHeight>window.innerWidth?window.innerHeight:window.innerWidth);
+  var l = (window.innerHeight<window.innerWidth?window.innerHeight:window.innerWidth);
+
+
+
+var btnfncshn= function(){this.dwidth/=1.05;if((this.dwidth/Math.abs(this.dwidth))*this.width>(this.dwidth/Math.abs(this.dwidth))*(this.dwidth>0?2*(l/6):(l/6))){this.dwidth=0;}}
+for(var i=0;i<4;i++){
+Btn.add("se"+(i+1))	;
+Btn.Q("se"+(i+1)).bonusFunction=eval(btnfncshn);
+Btn.Q("se"+(i+1)).width=(l/6);
+Btn.Q("se"+(i+1)).bkgrwndClr=[255,104,68];
+Btn.Q("se"+(i+1)).brdrClr=[253,17,0];
+Btn.Q("se"+(i+1)).borderWidth=4;
+document.getElementById("se"+(i+1)).addEventListener("mousedown",function(event){Btn.Q(this.id).bkgrwndClr=[0,0,0];Btn.Q(this.id).brdrClr=[255,104,68];Btn.Q(this.id).fntClr=[255,255,255]})
+document.getElementById("se"+(i+1)).addEventListener("touchstart",function(event){Btn.Q(this.id).dwidth=3;})
+document.getElementById("se"+(i+1)).addEventListener("mouseleave",function(event){Btn.Q(this.id).dwidth=-3;Btn.Q(this.id).bkgrwndClr=[255,104,68];Btn.Q(this.id).brdrClr=[253,17,0];Btn.Q(this.id).fntClr=[0,0,0]})
+document.getElementById("se"+(i+1)).addEventListener("touchend",function(event){Btn.Q(this.id).dwidth=-3;})
+document.getElementById("se"+(i+1)).addEventListener("mouseup",function(event){Btn.Q(this.id).bkgrwndClr=[255,104,68];Btn.Q(this.id).brdrClr=[253,17,0];Btn.Q(this.id).fntClr=[0,0,0]})
+document.getElementById("se"+(i+1)).addEventListener("mouseenter",function(event){Btn.Q(this.id).dwidth=3;})
+}
+
+
+
+
+
+  function update(){
+  requestAnimationFrame(update);
+  s = (window.innerHeight>window.innerWidth?window.innerHeight:window.innerWidth);
+  l = (window.innerHeight<window.innerWidth?window.innerHeight:window.innerWidth);
+  CSS1.innerHTML=".S2{height:"+(l/6-12)+"px;}";
+  CSS1.innerHTML+=".S1{height:"+(window.innerHeight-(2*(l/6))-24)+"px;}";
+  CSS1.innerHTML+=".corner{height:"+(l/6-22)+"px;width:"+(window.innerWidth/2-24)+"px;}";
+  CSS2.innerHTML=".cornerCanv{height:"+(l/6-28)+"px;width:"+(l/6-28)+"px;}"
+  CSS3.innerHTML=".side{width:"+((l/6)-18)+"px;height:"+(window.innerHeight-(2*(l/6))-28)+"px}";
+  CSS4.innerHTML=".lineCanv_L{height:"+(l/6-28)+"px;width:"+((window.innerWidth/2)-(l/3-28)-4)+"px;left:"+(l/6-28)+"px;}";
+  CSS4.innerHTML+=".lineCanv_R{height:"+(l/6-28)+"px;width:"+((window.innerWidth/2)-(l/3-28)-4)+"px;right:"+(l/6-28)+"px;}"
+  Btn.sspawn();
+  }
+  update();
+  //CSS4.innerHTML=".c_img{height:"+((l/6)-30)+"px;width:"+((l/6)-30)+"px;}";
+  </script>
+  
+</html>

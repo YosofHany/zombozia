@@ -1,0 +1,12 @@
+var mward=new Image();mward.src="gameFiles\\mward1.PNG";
+var man_R=new Image();man_R.src="gameFiles\\man_R.png";        var man_L=new Image();man_L.src="gameFiles\\man_L.png";
+var z_R=new Image();z_R.src="gameFiles\\z_R.png";              var z_L=new Image();z_L.src="gameFiles\\z_L.png";
+var bazooka_R=new Image();bazooka_R.src="gameFiles\\bazooka_R.png";var bazooka_L=new Image();bazooka_L.src="gameFiles\\bazooka_L.png";
+var bazooka_R_0=new Image();bazooka_R_0.src="gameFiles\\bazooka_R_0.png";var bazooka_L_0=new Image();bazooka_L_0.src="gameFiles\\bazooka_L_0.png";
+var gun_R=new Image();gun_R.src="gameFiles\\gun_R.png";        var gun_L=new Image();gun_L.src="gameFiles\\gun_L.png";
+var blt_R=new Image();blt_R.src="gameFiles\\blt_R.png";         var blt_L=new Image();blt_L.src="gameFiles\\blt_L.png";
+var rocket_R=new Image();rocket_R.src="gameFiles\\rocket_R.png";         var rocket_L=new Image();rocket_L.src="gameFiles\\rocket_L.png";
+var smok=new Image();smok.src="gameFiles\\smok.png";
+var zox_R_0=new Image();zox_R_0.src="gameFiles\\zox_R.png";var zox_L_0=new Image();zox_L_0.src="gameFiles\\zox_L.png";
+var autoGun_R=new Image();autoGun_R.src="gameFiles\\autoGun_R.png";var autoGun_L=new Image();autoGun_L.src="gameFiles\\autoGun_L.png";
+var zox_R_1=new Image();zox_R_1.src="gameFiles\\zox_R_1.png";var zox_L_1=new Image();zox_L_1.src="gameFiles\\zox_L_1.png";

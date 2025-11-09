@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<!--
+the player character should take  3.6 seconds to run the map from left to ryte
+
+
+-->
+<link rel="icon" href="gameFiles/icon.png" >
+<style>
+  
+/*div{height: 100px;width: 300px;border: 6px solid green;display:inline-block;}*/
+canvas{border: 4px solid #173737;background-color: #085422;display: inline-block;}
+.life{text-wrap-mode:nowrap;display:block;text-align:start;border: 4px solid black; width:200px;font-size:20px;color:white;}
+#floose{display:block;text-align:left;color:#d4ed19;font-size:20px;font-family:Script MT;font-style: italic;}
+/*#weapons{display: inline-block; background-color: aliceblue;height: 512px;}*/
+body{background-color: #269d77;text-align: center;}
+.w{border: 2px solid black;margin-top:50px;}
+</style>
+<style id="style1">
+</style>
+<body>
+
+<div id="healthBars" style="position: relative;height: 36px;">
+
+
+<div  class="life" id="life" style="position: absolute;left: 0px;"><div style="background-color:crimson;">LIFE : 100</div></div> 
+
+
+<!--div class="life" id="bossLife" style="text-align: right;display: inline-block;width: 50%;height:33px;position:absolute;right: 0px;"></div-->
+
+</div>
+
+<div  id="floose"><div>MONEY : 0$</div>     </div>
+<div style="height: 512px;width: 120px;display:inline-block;"></div>
+<canvas id="c"></canvas><div  style="height: 512px;width: 80px;display:inline-block;"></div>
+<div style="display: inline-block;"> 
+<img src="gameFiles\\m0gun.PNG" class="w" onclick='Weapon.currS="";if(Weapon.currentW!="gun"){Weapon.buy("gun",20,"cell")}else{Weapon.currentW="man";document.getElementById("style1").innerHTML="canvas{cursor:default;}"}player.photo=Weapon.currentW+"_"+player.photo.split("_")[1]+Weapon.currS;weponSelected()'>
+</img><br><span id="gun">20$</span><br>
+<img src="gameFiles\\bazooka.png" class="w" onclick='Weapon.currS=(bazooka.coolup>=bazooka.cooldown?"":"_0");if(Weapon.currentW!="bazooka"){Weapon.buy("bazooka",30,"cell")}else{Weapon.currentW="man";Weapon.currS="";document.getElementById("style1").innerHTML="canvas{cursor:default;}"}player.photo=Weapon.currentW+"_"+player.photo.split("_")[1]+Weapon.currS;weponSelected()'>
+</img><br><span id="bazooka">30$</span><br>
+<img src="gameFiles\\autoGun.png" class="w" onclick='Weapon.currS="";if(Weapon.currentW!="autoGun"){Weapon.buy("autoGun",130,"cell")}else{Weapon.currentW="man";document.getElementById("style1").innerHTML="canvas{cursor:default;}"}player.photo=Weapon.currentW+"_"+player.photo.split("_")[1]+Weapon.currS;weponSelected()'>
+</img><br><span id="autoGun">130$</span><br>
+
+<img src="gameFiles\\kwesshanMark.PNG" class="w" id="w4"></img><br><span>200$</span></div>
+</body>
+<script src="gameFiles/code/functions.js"></script>
+<script src="gameFiles/code/emages.js"></script>
+<script src="gameFiles/code/player.js"></script>
+<script src="gameFiles/code/Zomby.js"></script>
+<script src="gameFiles/code/Mward.js"></script>
+<script src="gameFiles/code/bullet.js"></script>
+<!--script src="gameFiles/code/DontDoThat.js"></script--> 
+<script>
+var c =document.querySelector("canvas");
+
+c.width=828;
+c.height=512;
+let c2 =c.getContext("2d",{ willReadFrequently: true }); 
+
+var zombykilled=0;
+let mode ="mine";
+let mony =document.getElementById("floose");
+let pointX=0;let pointY=0;
+//var Time;var starttime=new Date().getTime();
+c.addEventListener("mousedown",event=>
+{
+  if(Weapon.currentW=="man")
+  {
+   for(var o=0;o<Mward.b.length;o++)
+   {if(calkdistans(Mward.b[o].x,Mward.b[o].y,(event.x-c.offsetLeft),(event.y-c.offsetTop))<45)
+   {if(calkdistans(Mward.b[o].x,Mward.b[o].y,player.x,player.y)<70){Mward.b[o].getmined(8);continue;}}}
+  
+  
+  }
+  else
+  {
+    // -------SHOOT---------//
+    eval(Weapon.currentW).fire(event.x-c.offsetLeft,event.y-c.offsetTop);
+    console.log((event.x-c.offsetLeft)+"  ,"+(event.y-c.offsetTop));
+  }
+});
+ c.addEventListener("mouseup",event=>{if(Weapon.currentW!="man"){eval(Weapon.currentW).stopFiring();}});
+ c.addEventListener("mousemove",event=>{
+pointX=(event.x-c.offsetLeft);
+pointY=(event.y-c.offsetTop);
+ });
+class Other {
+
+life=20;
+x=0;y=0;dx=0;dy=0;
+bonus(){}
+spawn(){this.x+=this.dx;this.y+=this.dy;c2.fillStyle="#eeeeee";c2.fillRect(this.x-(this.life/2),this.y-(this.life/2),this.life,this.life);this.bonus();}
+
+static b = [];
+static sspawn(){for(var a=0;a<(Other.b.length);a++){Other.b[a].spawn();if(Other.b[a].life<=0){Other.b=rfa(Other.b,a)};}};
+static add(X,Y,DX,DY,s){var t=new Other();t.x=X;t.y=Y;t.dx=DX;t.dy=DY;t.spawn=s;Other.b.push(t)};
+static add(X,Y,DX,DY){var t=new Other();t.x=X;t.y=Y;t.dx=DX;t.dy=DY;Other.b.push(t)};
+}
+
+class Weapon
+{
+ 
+ name="";
+ bltspeed=7;
+ cooldown=200;
+ coolup=0;
+ damage=30;
+ //user=player;
+ fire(tx,ty){
+ player.photo=Weapon.currentW+"_"+(tx>player.x?"R":"L")+Weapon.currS;
+
+if(this.coolup>=this.cooldown){this.coolup=0;
+
+  bullet.add(
+ player.x,
+ player.y,
+ this.bltspeed*((tx-player.x)/calkdistans(player.x,player.y,tx,ty)),
+ this.bltspeed*((ty-player.y)/calkdistans(player.x,player.y,tx,ty)),
+ this.damage,
+ player);
+ emptyBullet(player.x,player.y,tx>player.x?"L":"R")
+}}
+
+ spawn(){
+if(this.coolup<this.cooldown){this.coolup++;}
+ }
+
+stopFiring(){}
+ static currentW="man";
+ static currS="";
+ static ownedWepons=["man"];
+ static buy(w,price,aim)
+ {
+  if(Weapon.ownedWepons.includes(w)){Weapon.currentW=w;document.getElementById("style1").innerHTML="canvas{cursor:"+aim+";}";return true;  }
+   else if(player.mony>=price)
+   {
+    player.mony-=price;mony.innerHTML="MONEY : "+player.mony+"$"; Weapon.currentW=w;Weapon.ownedWepons.push(w);document.getElementById("style1").innerHTML="canvas{cursor:"+aim+";}";
+    if(eval(w).cooldown>299){Weapon.currS="_0"}
+   }
+ } 
+}
+var gun=new Weapon();gun.name="gun";gun.cooldown=100;
+var bazooka=new Weapon();bazooka.name="bazooka";bazooka.cooldown=400;bazooka.damage=70;
+bazooka.spawn=function(){if(this.coolup<this.cooldown){this.coolup++;}
+else{player.photo=player.photo.substring(0,9);Weapon.currS=""}
+}
+
+bazooka.fire=function(tx,ty)
+{player.photo=Weapon.currentW+"_"+(tx>player.x?"R":"L")+"_0";Weapon.currS="_0";
+if(this.coolup>=this.cooldown){this.coolup=0;
+
+  Rocket.add(
+ player.x,
+ player.y,
+ this.bltspeed*((tx-player.x)/calkdistans(player.x,player.y,tx,ty)),
+ this.bltspeed*((ty-player.y)/calkdistans(player.x,player.y,tx,ty)),
+ this.damage,
+ player);Weapon.currS="_0";
+ player.photo="bazooka_"+(tx>player.x?"R":"L")+"_0";
+}
+};bazooka.bltspeed=5;
+var autoGun =new Weapon();autoGun.name="autoGun";autoGun.fire=function(){player.photo=Weapon.currentW+"_"+(pointX>player.x?"R":"L");
+this.coolup=1;
+}
+autoGun.stopFiring=function(){this.coolup=0;}
+autoGun.spawn=function(){if(this.coolup==1&&this.cooldown<0){
+ bullet.add(player.x,player.y,
+ this.bltspeed*((pointX-player.x)/calkdistans(player.x,player.y,pointX,pointY)),
+ this.bltspeed*((pointY-player.y)/calkdistans(player.x,player.y,pointX,pointY)),
+ this.damage,
+ player);
+ player.photo=Weapon.currentW+"_"+(pointX>player.x?"R":"L");
+ emptyBullet(player.x,player.y,pointX>player.x?"L":"R")
+ this.cooldown=30;
+
+}else{this.cooldown--;}}
+class Rocket extends bullet
+{
+photo=rocket_R;
+static add(ex,way,DX,DY,DMG=30,usr,r=10){var t=new Rocket();t.x=ex;t.y=way;t.dx=DX;t.dy=DY;t.damage=DMG;t.photo=((DX>=0)?rocket_R:rocket_L);
+    t.shooter=usr;t.startx=usr.x;t.starty=usr.y;
+    t.range=r;
+    bullet.b.push(t);}
+  i=0;
+distractor(){boom(this.x,this.y);
+  var targets=4;
+  for(var g=Zomby.b.length;g>0;g--){
+  if(calkdistans(this.x,this.y,Zomby.b[g-1].x,Zomby.b[g-1].y)<79){damage(Zomby.b[g-1],this.damage);targets--;}
+  if(targets<1){g=0}
+  }}
+
+  spawn(){if(this.i>10){smoke(this.x,this.y,this.dx/-9,this.dy/9);this.i=0;}else{this.i++;}
+  this.x+=this.dx;this.y+=this.dy;
+   c2.drawImage(this.photo,this.x-(this.photo.width/2),this.y-(this.photo.height/2),this.photo.width,this.photo.height);
+  }
+}
+
+c2.fillStyle="#085422";
+let camx=0;
+let camy=0;
+player.x=c.clientWidth/2
+player.y=c.clientHeight/2
+Mward.add(20+Math.random()*800,40+Math.random()*450);Mward.add(20+Math.random()*800,40+Math.random()*450)
+
+function time(){//\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\--VOID UPDATE--/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+if(player.life<0){alert(`\n         DEAD \n\nmoney collected : `+player.mony+"\nzombies killed     : "+zombykilled);return}
+requestAnimationFrame(time);
+ c2.fillStyle="#085422";
+  c2.fillRect(0,0,c.width,c.height);
+
+if(zombykilled>34){if(zox.exists==0){zox.appear();}}
+
+Mward.sspawn(980);
+Other.sspawn();
+Zomby.sspawn(2000,1700);
+bullet.sspawn();
+player.spawn();
+//checkTheWindow();
+}
+time();
+</script></html>
