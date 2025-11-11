@@ -3,8 +3,9 @@
 <html>
 
 <!--
-the player character should take  3.6 seconds to run the map from left to ryte
-
+the player character should take  3.6 seconds to run the map from left to right (785 pixls)
+vilocity = 785/3600 = 0.218055555 px/ms
+now it takes 13.4s 
 
 -->
 <link rel="icon" href="gameFiles/icon.png" >
@@ -38,7 +39,8 @@ body{background-color: #269d77;text-align: center;}
 <div style="display: inline-block;"> 
 <img src="gameFiles\\m0gun.PNG" class="w" onclick='Weapon.currS="";if(Weapon.currentW!="gun"){Weapon.buy("gun",20,"cell")}else{Weapon.currentW="man";document.getElementById("style1").innerHTML="canvas{cursor:default;}"}player.photo=Weapon.currentW+"_"+player.photo.split("_")[1]+Weapon.currS;weponSelected()'>
 </img><br><span id="gun">20$</span><br>
-<img src="gameFiles\\bazooka.png" class="w" onclick='Weapon.currS=(bazooka.coolup>=bazooka.cooldown?"":"_0");if(Weapon.currentW!="bazooka"){Weapon.buy("bazooka",30,"cell")}else{Weapon.currentW="man";Weapon.currS="";document.getElementById("style1").innerHTML="canvas{cursor:default;}"}player.photo=Weapon.currentW+"_"+player.photo.split("_")[1]+Weapon.currS;weponSelected()'>
+<img src="gameFiles\\bazooka.png" class="w"
+ onclick='if(Weapon.currentW!="bazooka"){if(Weapon.buy("bazooka",30,"cell")){Weapon.currS=(bazooka.coolup>=bazooka.cooldown?"":"_0");}}else{Weapon.currentW="man";Weapon.currS="";document.getElementById("style1").innerHTML="canvas{cursor:default;}"}player.photo=Weapon.currentW+"_"+player.photo.split("_")[1]+Weapon.currS;weponSelected()'>
 </img><br><span id="bazooka">30$</span><br>
 <img src="gameFiles\\autoGun.png" class="w" onclick='Weapon.currS="";if(Weapon.currentW!="autoGun"){Weapon.buy("autoGun",130,"cell")}else{Weapon.currentW="man";document.getElementById("style1").innerHTML="canvas{cursor:default;}"}player.photo=Weapon.currentW+"_"+player.photo.split("_")[1]+Weapon.currS;weponSelected()'>
 </img><br><span id="autoGun">130$</span><br>
@@ -63,6 +65,9 @@ var zombykilled=0;
 let mode ="mine";
 let mony =document.getElementById("floose");
 let pointX=0;let pointY=0;
+var FPS = 40;
+
+
 //var Time;var starttime=new Date().getTime();
 c.addEventListener("mousedown",event=>
 {
@@ -82,16 +87,19 @@ c.addEventListener("mousedown",event=>
   }
 });
  c.addEventListener("mouseup",event=>{if(Weapon.currentW!="man"){eval(Weapon.currentW).stopFiring();}});
+ c.addEventListener("mouseleave",event=>{if(Weapon.currentW!="man"){eval(Weapon.currentW).stopFiring();}});
  c.addEventListener("mousemove",event=>{
 pointX=(event.x-c.offsetLeft);
 pointY=(event.y-c.offsetTop);
  });
+
+
 class Other {
 
 life=20;
 x=0;y=0;dx=0;dy=0;
 bonus(){}
-spawn(){this.x+=this.dx;this.y+=this.dy;c2.fillStyle="#eeeeee";c2.fillRect(this.x-(this.life/2),this.y-(this.life/2),this.life,this.life);this.bonus();}
+spawn(){this.x+=this.dx*(148/FPS);this.y+=this.dy*(148/FPS);c2.fillStyle="#eeeeee";c2.fillRect(this.x-(this.life/2),this.y-(this.life/2),this.life,this.life);this.bonus();}
 
 static b = [];
 static sspawn(){for(var a=0;a<(Other.b.length);a++){Other.b[a].spawn();if(Other.b[a].life<=0){Other.b=rfa(Other.b,a)};}};
@@ -124,7 +132,7 @@ if(this.coolup>=this.cooldown){this.coolup=0;
 }}
 
  spawn(){
-if(this.coolup<this.cooldown){this.coolup++;}
+if(this.coolup<this.cooldown){this.coolup+=(148/FPS);}
  }
 
 stopFiring(){}
@@ -137,13 +145,14 @@ stopFiring(){}
    else if(player.mony>=price)
    {
     player.mony-=price;mony.innerHTML="MONEY : "+player.mony+"$"; Weapon.currentW=w;Weapon.ownedWepons.push(w);document.getElementById("style1").innerHTML="canvas{cursor:"+aim+";}";
-    if(eval(w).cooldown>299){Weapon.currS="_0"}
+    if(eval(w).cooldown>299){Weapon.currS="_0"};return true;
    }
+   else{return false;}
  } 
 }
 var gun=new Weapon();gun.name="gun";gun.cooldown=100;
 var bazooka=new Weapon();bazooka.name="bazooka";bazooka.cooldown=400;bazooka.damage=70;
-bazooka.spawn=function(){if(this.coolup<this.cooldown){this.coolup++;}
+bazooka.spawn=function(){if(this.coolup<this.cooldown){this.coolup+=(148/FPS);}
 else{player.photo=player.photo.substring(0,9);Weapon.currS=""}
 }
 
@@ -175,7 +184,7 @@ autoGun.spawn=function(){if(this.coolup==1&&this.cooldown<0){
  emptyBullet(player.x,player.y,pointX>player.x?"L":"R")
  this.cooldown=30;
 
-}else{this.cooldown--;}}
+}else{this.cooldown-=(148/FPS);}}
 class Rocket extends bullet
 {
 photo=rocket_R;
@@ -191,8 +200,8 @@ distractor(){boom(this.x,this.y);
   if(targets<1){g=0}
   }}
 
-  spawn(){if(this.i>10){smoke(this.x,this.y,this.dx/-9,this.dy/9);this.i=0;}else{this.i++;}
-  this.x+=this.dx;this.y+=this.dy;
+  spawn(){if(this.i>10){smoke(this.x,this.y,this.dx/-9,this.dy/9);this.i=0;}else{this.i+=(148/FPS);}
+  this.x+=this.dx*(148/FPS);this.y+=this.dy*(148/FPS);
    c2.drawImage(this.photo,this.x-(this.photo.width/2),this.y-(this.photo.height/2),this.photo.width,this.photo.height);
   }
 }
@@ -205,14 +214,15 @@ player.y=c.clientHeight/2
 Mward.add(20+Math.random()*800,40+Math.random()*450);Mward.add(20+Math.random()*800,40+Math.random()*450)
 
 function time(){//\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\--VOID UPDATE--/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
-if(player.life<0){alert(`\n         DEAD \n\nmoney collected : `+player.mony+"\nzombies killed     : "+zombykilled);return}
-requestAnimationFrame(time);
+if(player.life>0){setTimeout(time,1000/FPS);}
+else{alert(`\n         DEAD \n\nmoney collected : `+player.mony+"\nzombies killed     : "+zombykilled);return;}
+ //requestAnimationFrame(time);
  c2.fillStyle="#085422";
-  c2.fillRect(0,0,c.width,c.height);
+ c2.fillRect(0,0,c.width,c.height);
 
 if(zombykilled>34){if(zox.exists==0){zox.appear();}}
 
-Mward.sspawn(980);
+Mward.sspawn(1100);
 Other.sspawn();
 Zomby.sspawn(2000,1700);
 bullet.sspawn();

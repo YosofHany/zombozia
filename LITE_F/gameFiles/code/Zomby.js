@@ -16,8 +16,8 @@ spawn(){
  this.dx=(this.bodyx/this.target)*this.speed;
  this.dy=(this.bodyy/this.target)*this.speed;
  if(this.target>30){
-   this.x+=this.dx;this.y+=this.dy;
- }else{player.life-=0.09}
+   this.x+=this.dx*(148/FPS);this.y+=this.dy*(148/FPS);
+ }else{player.life-=0.09*(148/FPS)}
  this.photo="z_"+((this.dx<0)?"L":"R");
   c2.drawImage(eval(this.photo),(this.x-32),(this.y-37),70,70);
 }
@@ -27,10 +27,10 @@ static sspawn(start , oh)
 {
   var Start=start; var Oh=oh; 
   
-  if(Zomby.timing2<Start){Zomby.timing2++;}
+  if(Zomby.timing2<Start){Zomby.timing2+=(148/FPS);}
   else 
   {
-    if(Zomby.timing<Oh){Zomby.timing++;}
+    if(Zomby.timing<Oh){Zomby.timing+=(148/FPS);}
     else{
      Zomby.timing=((Math.random())*(Oh/1.1));
      
@@ -61,7 +61,7 @@ static add(ex,way){var t=new Zomby();t.x=ex;t.y=way;Zomby.b.push(t);}
   t.x=ex;t.y=way;t.bodyx=1;
   t.spawn=function(){
     c2.drawImage(eval(this.photo),0,0,30,this.bodyx,this.x-35,this.y-(this.bodyx*70)/32,70,(this.bodyx*70)/32);
-    if(this.bodyx<32){this.bodyx+=0.15}
+    if(this.bodyx<32){this.bodyx+=0.15*(148/FPS);}
     else{this.y-=30;this.spawn=new Zomby().spawn;}
   }
   Zomby.b.push(t);
@@ -83,7 +83,7 @@ zox.timeUp=230;zox.timeUp2=30;
 zox._show=function(){c2.drawImage(eval(this.photo),this.x-38,this.y-50);}
 zox.moves=
 [
- function(){if(zox.timeUp>0){zox.timeUp--;}else{
+ function(){if(zox.timeUp>0){zox.timeUp-=(148/FPS);}else{
  if(zox.dx!=0&&zox.dy!=0){zox.dx=0;zox.dy=0}
  else{var angl=(Math.random()*2*Math.PI); zox.dx=sita_2_cor(zox.speed,angl)[0];zox.dy=sita_2_cor(zox.speed,angl)[1]}
  zox.timeUp=230+(40-Math.random()*80)} },
@@ -94,16 +94,16 @@ zox.moves=
 zox.move=zox.moves[0];
 zox.attacks=[
 function(){
-if(zox.timeUp2>0){zox.timeUp2--;}else{
+if(zox.timeUp2>0){zox.timeUp2-=(148/FPS);}else{
 
 var t=new Other();
 t.x=zox.x;t.y=zox.y;
-t.dx=2*(zox.phase+1)*(player.x-zox.x)/calkdistans(player.x,player.y,zox.x,zox.y);
-t.dy=2*(zox.phase+1)*(player.y-zox.y)/calkdistans(player.x,player.y,zox.x,zox.y);
+t.dx=2*(Math.round(zox.phase/2+0.1)+1)*(player.x-zox.x)/calkdistans(player.x,player.y,zox.x,zox.y);
+t.dy=2*(Math.round(zox.phase/2+0.1)+1)*(player.y-zox.y)/calkdistans(player.x,player.y,zox.x,zox.y);
 t.life=8;
 t.bonus=function()
 {
- if(Math.abs(this.x-player.x)<eval(player.photo).width/2&&Math.abs(this.y-player.y)<eval(player.photo).height/2){player.life-=(zox.phase+1)*2;this.life=0;}
+ if(Math.abs(this.x-player.x)<eval(player.photo).width/2&&Math.abs(this.y-player.y)<eval(player.photo).height/2){player.life-=4;this.life=0;}
  if(calkdistans(this.x,this.y,zox.x,zox.y)>2000){this.life=0;}
 }
 Other.b.push(t);
@@ -120,7 +120,7 @@ zox.attack=zox.attacks[zox.phase];
 zox.spawn=function()
 {
 
- zox.x+=zox.dx;zox.y+=zox.dy;
+ zox.x+=zox.dx*(148/FPS);zox.y+=zox.dy*(148/FPS);
  zox.bodyx=player.x-zox.x;zox.bodyy=player.y-zox.y;
  if(zox.phase!=5-Math.ceil((zox.life/4500)*4)){zox.phase=5-Math.ceil((zox.life/4500)*4);}
  zox.photo="zox_"+(zox.bodyx<0?"L":"R")+"_"+zox.photo.split("_")[2]
@@ -144,7 +144,7 @@ zox.appear=function()
   
    for(var x=0;x<(Zomby.b.length);x++)
    {
-    if(Zomby.b[x].life<=1){Zomby.b=rfa(Zomby.b,x);player.mony+=3;
+    if(Zomby.b[x].life<=1){getMoney(15,zox.x,zox.y);Zomby.b=rfa(Zomby.b,x);
     mony.innerHTML="MONEY : "+player.mony+"$"; zombykilled++;break}
    }
     Zomby.b.forEach(function(element){element.spawn()});

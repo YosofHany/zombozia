@@ -10,8 +10,8 @@ distrtactor(){
 }
 static sspawn(O0){//-----------------------------------------sspawn---------------------------------
 var wait =O0;
-this.timer++;if(this.timer>wait&&Mward.b.length<6){
-this.add(20+Math.random()*800,40+Math.random()*450);this.timer=0;wait+=12}
+this.timer+=(148/FPS);if(this.timer>wait&&Mward.b.length<6){
+this.add(20+Math.random()*800,40+Math.random()*450);this.timer=0;wait+=12*(148/FPS)}
 for(var x=0;x<(Mward.b.length);x++){
 if(Mward.b[x].valu<10){Mward.b[x].distrtactor();Mward.b=rfa(Mward.b,x);}
 }

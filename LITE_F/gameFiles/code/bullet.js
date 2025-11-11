@@ -12,7 +12,7 @@ class bullet
   distractor(){}
   spawn()
   {
-    this.x+=this.dx;this.y+=this.dy;
+    this.x+=this.dx*(148/FPS);this.y+=this.dy*(148/FPS);
     c2.drawImage(this.photo,this.x-(this.photo.width/2),this.y-(this.photo.height/2),this.photo.width,this.photo.height);
   }
   static sspawn()

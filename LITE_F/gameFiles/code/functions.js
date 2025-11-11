@@ -17,7 +17,7 @@ function boom(X,Y)
   t.dy=4+Math.random()*2;
   t.spawn=function()
   {
-    this.x+=this.dx;this.y-=this.dy;this.dy-=0.07;
+    this.x+=this.dx*(148/FPS);this.y-=this.dy*(148/FPS);this.dy-=0.07*(148/FPS);
     c2.fillStyle="#000000";
     c2.fillRect(this.x,this.y,10,10);
     if(this.y>Y&&this.dy<0){this.dy*=-0.5;this.life-=10}
@@ -27,12 +27,12 @@ function boom(X,Y)
 }
 function emptyBullet(X,Y,DIR){
   let t=new Other();t.x=X;t.y=Y;t.dx=(DIR=="R"?1.1:-1.1)*((Math.random()/3)+0.4);t.dy=(0.4+Math.random())*2;
-  t.spawn=function(){this.x+=this.dx;this.y-=this.dy;this.dy-=0.04;c2.fillStyle="#ffff00";c2.fillRect(this.x,this.y,8,4);if(this.y>(Y+25)&&this.dy<0){this.dy*=-0.7;this.dx/=2;this.life-=5}}
+  t.spawn=function(){this.x+=this.dx*(148/FPS);this.y-=this.dy*(148/FPS);this.dy-=0.04*(148/FPS);c2.fillStyle="#ffff00";c2.fillRect(this.x,this.y,8,4);if(this.y>(Y+25)&&this.dy<0){this.dy*=-0.7;this.dx/=2;this.life-=5}}
   Other.b.push(t)
   }  
 function smoke(X,Y,DX=0,DY=0){
   let t = new Other();t.x=X;t.y=Y;t.dx=DX;t.dy=DY;
-  t.spawn=function(){let size=(101-this.life*4);this.x+=this.dx;this.y-=this.dy;c2.drawImage(smok,this.x-(size/2),this.y-(size/2),size,size);this.life-=0.1;};Other.b.push(t)}
+  t.spawn=function(){let size=(101-this.life*4);this.x+=this.dx*(148/FPS);this.y-=this.dy*(148/FPS);c2.drawImage(smok,this.x-(size/2),this.y-(size/2),size,size);this.life-=0.1*(148/FPS);};Other.b.push(t)}
 
 function weponSelected(){
   for(let i=0;i<Weapon.ownedWepons.length;i++){
@@ -54,7 +54,7 @@ t.bonus=function()
 {
   if(this.jumbsleft>0)
  {
-  this.dy+=0.05;
+  this.dy+=0.05*(148/FPS);
   if(this.y>y&&this.dy>0){this.dy*=-0.5;this.jumbsleft--;}
   
   }
@@ -71,7 +71,7 @@ t.bonus=function()
 }
 t.spawn=function()
 {
- this.x+=this.dx;this.y+=this.dy;
+ this.x+=this.dx*(148/FPS);this.y+=this.dy*(148/FPS);
  c2.beginPath();
   c2.fillStyle="#aaaaaa";
   c2.arc(this.x,this.y,12,0,6);
