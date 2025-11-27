@@ -3,10 +3,9 @@
 <html>
 
 <!--
-the player character should take  3.6 seconds to run the map from left to right (785 pixls)
-vilocity = 785/3600 = 0.218055555 px/ms
-now it takes 13.4s 
-
+the player character should take ~ 3.6 seconds to run the map from left to right (785 pixls)
+player speed=1.5  , vilocity = 222   px/s
+zomby speed =1.2  , vilocity = 177.6 px/s
 -->
 <link rel="icon" href="gameFiles/icon.png" >
 <style>
@@ -51,9 +50,10 @@ body{background-color: #269d77;text-align: center;}
 <script src="gameFiles/code/emages.js"></script>
 <script src="gameFiles/code/player.js"></script>
 <script src="gameFiles/code/Zomby.js"></script>
+<script src="gameFiles/code/zox.js"></script>
 <script src="gameFiles/code/Mward.js"></script>
 <script src="gameFiles/code/bullet.js"></script>
-<!--script src="gameFiles/code/DontDoThat.js"></script--> 
+<script src="gameFiles/code/DontDoThat.js"></script> 
 <script>
 var c =document.querySelector("canvas");
 
@@ -97,9 +97,10 @@ pointY=(event.y-c.offsetTop);
 class Other {
 
 life=20;
+color="#eeeeee";
 x=0;y=0;dx=0;dy=0;
 bonus(){}
-spawn(){this.x+=this.dx*(148/FPS);this.y+=this.dy*(148/FPS);c2.fillStyle="#eeeeee";c2.fillRect(this.x-(this.life/2),this.y-(this.life/2),this.life,this.life);this.bonus();}
+spawn(){this.x+=this.dx*(148/FPS);this.y+=this.dy*(148/FPS);c2.fillStyle=this.color;c2.fillRect(this.x-(this.life/2),this.y-(this.life/2),this.life,this.life);this.bonus();}
 
 static b = [];
 static sspawn(){for(var a=0;a<(Other.b.length);a++){Other.b[a].spawn();if(Other.b[a].life<=0){Other.b=rfa(Other.b,a)};}};

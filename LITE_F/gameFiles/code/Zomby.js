@@ -1,25 +1,46 @@
+function wakeSomeZombies(user="zox",amount=5,range=550,
+  targetx=document.querySelector("canvas").width/2,
+  targety=document.querySelector("canvas").height/2,
+  timeTaken=amount/2){
+  let t =new Other();t.x=(148*timeTaken)/amount;t.y=amount;t.dx=targetx;t.dy=targety;t.life=range;
+  //dx and dy here are the x and the y of waking zombies
+  t.spawn=function(){if(this.y<=0){this.life=0}
+  if(this.x>0){this.x-=(148/FPS)}
+  else{
+wakeupZomby(
+    this.dx+this.life*(Math.random()-0.5),
+    this.dy+this.life*(Math.random()-0.5))
+    ;t.x=(148*timeTaken)/amount;this.y--;}}
+Other.b.push(t);
+}
 class Zomby{
+target="player";
 x=0;y=0;
-bodyx= player.x-this.x;bodyy= player.y- this.y;
-speed=1.2;
-dx=0;dy=0;
+bodyx= eval(this.target).x-this.x;bodyy= eval(this.target).y- this.y;
+speed=1.2;dx=0;dy=0;
 life=50;
 hitbox=20;
-distractor(){getMoney(3,this.x,this.y);zombykilled++}
+
+distractor(){getMoney(3,this.x,this.y);}
 static b=[];
 static timing=0;
 static timing2=0;
 photo="z_R";
+_show(){this.photo="z_"+((this.dx<0)?"L":"R");
+  c2.drawImage(eval(this.photo),(this.x-32),(this.y-37),70,70);}
+  move(){this.x+=this.dx*(148/FPS);this.y+=this.dy*(148/FPS);}
+  bounus(){}
 spawn(){
- this.target=Math.sqrt(Math.pow(this.bodyx,2)+Math.pow(this.bodyy,2));
- this.bodyx=player.x-this.x;this.bodyy=player.y-this.y;
- this.dx=(this.bodyx/this.target)*this.speed;
- this.dy=(this.bodyy/this.target)*this.speed;
- if(this.target>30){
-   this.x+=this.dx*(148/FPS);this.y+=this.dy*(148/FPS);
- }else{player.life-=0.09*(148/FPS)}
- this.photo="z_"+((this.dx<0)?"L":"R");
-  c2.drawImage(eval(this.photo),(this.x-32),(this.y-37),70,70);
+ this.bodyx=eval(this.target).x-this.x;this.bodyy=eval(this.target).y-this.y;
+ console.log("spawning a zomby");
+ this.d=Math.sqrt(Math.pow(this.bodyx,2)+Math.pow(this.bodyy,2));
+ this.dx=(this.bodyx/this.d)*this.speed;
+ this.dy=(this.bodyy/this.d)*this.speed;
+ if(this.d>30){
+   this.move();
+ }else{eval(this.target).life-=0.09*(148/FPS)}
+ this.bounus();
+ this._show();
 }
 
 
@@ -46,7 +67,7 @@ static sspawn(start , oh)
 
  for(var x=0;x<(Zomby.b.length);x++)
  {
-  if(Zomby.b[x].life<=1){Zomby.b[x].distractor();Zomby.b=rfa(Zomby.b,x);
+  if(Zomby.b[x].life<=1){Zomby.b[x].distractor();zombykilled++;Zomby.b=rfa(Zomby.b,x);
   break}
  }
 
@@ -66,89 +87,4 @@ static add(ex,way){var t=new Zomby();t.x=ex;t.y=way;Zomby.b.push(t);}
   }
   Zomby.b.push(t);
  }
-}
-
-
-var zox =new Zomby();
-zox.life=4500;
-zox.speed=1.5;
-zox.phase=0;
-zox.exists=0;
-zox.hitbox=36;
-zox.photo="zox_L_0";
-
-zox.timeUp=230;zox.timeUp2=30;
-
-
-zox._show=function(){c2.drawImage(eval(this.photo),this.x-38,this.y-50);}
-zox.moves=
-[
- function(){if(zox.timeUp>0){zox.timeUp-=(148/FPS);}else{
- if(zox.dx!=0&&zox.dy!=0){zox.dx=0;zox.dy=0}
- else{var angl=(Math.random()*2*Math.PI); zox.dx=sita_2_cor(zox.speed,angl)[0];zox.dy=sita_2_cor(zox.speed,angl)[1]}
- zox.timeUp=230+(40-Math.random()*80)} },
- function(){},
- function(){},
- function(){}
-];
-zox.move=zox.moves[0];
-zox.attacks=[
-function(){
-if(zox.timeUp2>0){zox.timeUp2-=(148/FPS);}else{
-
-var t=new Other();
-t.x=zox.x;t.y=zox.y;
-t.dx=2*(Math.round(zox.phase/2+0.1)+1)*(player.x-zox.x)/calkdistans(player.x,player.y,zox.x,zox.y);
-t.dy=2*(Math.round(zox.phase/2+0.1)+1)*(player.y-zox.y)/calkdistans(player.x,player.y,zox.x,zox.y);
-t.life=8;
-t.bonus=function()
-{
- if(Math.abs(this.x-player.x)<eval(player.photo).width/2&&Math.abs(this.y-player.y)<eval(player.photo).height/2){player.life-=4;this.life=0;}
- if(calkdistans(this.x,this.y,zox.x,zox.y)>2000){this.life=0;}
-}
-Other.b.push(t);
- if(Math.random()<0.1){zox.timeUp2=300;zox.photo=zox.photo.slice(0,6)+"0";}
- else{zox.timeUp2=(30+(Math.random()-0.5)*30);zox.photo=zox.photo.slice(0,6)+"1";}
-}},//  !!!!!!
-function(){},
-function(){},
-function(){}
-
-];
-zox.attack=zox.attacks[zox.phase];
-
-zox.spawn=function()
-{
-
- zox.x+=zox.dx*(148/FPS);zox.y+=zox.dy*(148/FPS);
- zox.bodyx=player.x-zox.x;zox.bodyy=player.y-zox.y;
- if(zox.phase!=5-Math.ceil((zox.life/4500)*4)){zox.phase=5-Math.ceil((zox.life/4500)*4);}
- zox.photo="zox_"+(zox.bodyx<0?"L":"R")+"_"+zox.photo.split("_")[2]
- zox._show();
- zox.move();
- zox.attack();
- if(zox.y<45){zox.y=45}
- if(zox.y>470){zox.y=470}
- if(zox.x<20){zox.x=20}
- if(zox.x>805){zox.x=805}
- document.getElementById("bossLife").innerHTML='<div style="background-color:crimson;position:absolute;right:0px;height:100%;width:'+zox.life/45+'%;">ZOX : '+Math.round(zox.life)+'</div>';
-}
-zox.appear=function()
-{
-  zox.x=200;zox.y=100;zox.exists=1;
-  Zomby.b.push(zox);
-  for(var l=0;l<Zomby.b.length;l++){Zomby.b[l].speed=Zomby.b[l].speed*-1;}
-  document.getElementById("healthBars").innerHTML+='<div class="life" id="bossLife" style="text-align: right;display: inline-block;width: 50%;height:32px;position:absolute;right: 0px;"></div>';
-  document.getElementById("bossLife").innerHTML='<div style="background-color:crimson;width:'+zox.life/45+'%;">ZOX : '+Math.round(zox.life)+'</div>';
-  Zomby.sspawn=function(a,aa){
-  
-   for(var x=0;x<(Zomby.b.length);x++)
-   {
-    if(Zomby.b[x].life<=1){getMoney(15,zox.x,zox.y);Zomby.b=rfa(Zomby.b,x);
-    mony.innerHTML="MONEY : "+player.mony+"$"; zombykilled++;break}
-   }
-    Zomby.b.forEach(function(element){element.spawn()});
-  }
-
-
 }

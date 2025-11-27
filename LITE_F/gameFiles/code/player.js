@@ -5,6 +5,7 @@ var player= {
  dy  :0,
  mony:0,
  life:100,
+ speed:1.5,
  photo :"man_R",
  spawn : function(){
  if(Weapon.currentW!="man"){eval(Weapon.currentW).spawn();}

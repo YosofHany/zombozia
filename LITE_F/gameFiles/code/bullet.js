@@ -36,7 +36,8 @@ class bullet
         {
          damage(  Zomby.b[x],(bullet.b[a].damage));
          bullet.b[a].distractor();
-          bullet.b=rfa(bullet.b,a);
+         bullet.b=rfa(bullet.b,a);
+         break;
         }
       }
     }

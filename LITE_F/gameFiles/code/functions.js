@@ -3,11 +3,12 @@ function getSeta(x1,y1,x2,y2){ let r1=Math.sqrt(x1*x1+y1*y1);
  let sin2=y2/r2;let sita1=Math.acos(cos1);if(sin1<0){sita1=(2*Math.PI)-sita1}
  let sita2=Math.acos(cos2);if(sin2<0){sita2=(2*Math.PI)-sita2} if(r1==0||r2==0){return 0}else{
  if((sita2-sita1)<0){return((sita2-sita1)+(2*Math.PI))}else{ return (sita2-sita1)};}}
-
+function sita_2_cor(r,sita){let x= r*Math.cos(sita);let y= r*Math.sin(sita);return[x,y];}
+// 1 degree= 0.017453293 radians
+function cor_2_sita(x,y){var r=Math.sqrt(Math.pow((x),2)+Math.pow((y),2));var cosinSita=x/r;var sinSita=y/r;var sita=Math.acos(cosinSita);if(sinSita<0){sita=(2*Math.PI)-sita;}if(r!=0){ return [r,sita]}else{return [0,0]}}
 function calkdistans(x1,y1,x2,y2){return(Math.sqrt(Math.pow((x2-x1),2)+Math.pow((y2-y1),2)));}
 function rfa(array,indox){let b=[];for(i=0;i<array.length-1;i++){if(i>=indox){b[i]=array[i+1]}else{b[i]=array[i]}}return b}
 function damage (target , dmg){target.life-=dmg;}
-function sita_2_cor(r,sita){let x= r*Math.cos(sita);let y= r*Math.sin(sita);return[x,y];}
 function boom(X,Y)
 {
  for(let v= 0;v<5;v++)
@@ -82,8 +83,49 @@ t.spawn=function()
   c2.arc(this.x,this.y,9,0,6);
   c2.closePath();
   c2.fill();
-  t.bonus();
- 
-}
+  t.bonus();}
 Other.b.push(t);}
+}
+function wakeupZomby(ex,way,s=new Zomby().bounus)
+ {
+  stuff(ex,way);
+  var t=new Zomby();
+  t.x=ex;t.y=way;t.bodx=1;t.body=0.4;
+  t._show=function(){c2.drawImage(eval(this.photo),0,0,30,this.bodx,this.x-35,this.y-(this.bodx*70)/32,70,(this.bodx*70)/32);}
+  t.move=function(){
+    if(this.bodx<32){this.bodx+=this.body*(148/FPS);this.body=0.02+(40-this.bodx)/100}
+    else{this.y-=30;this.move=new Zomby().move;this._show=new Zomby()._show;this.bounus=s;}
+  };Zomby.b.push(t);}
+
+function stuff(ex,way,dirction="both",col="#4dd80c",amount=6)
+{let var1 = 0; let var2 =30/amount;
+ for(let i=0;i<amount;i++){
+ let t=new Other();t.color=col;t.y=way;t.x=ex+(var1-15);t.life=5
+ if(dirction!="left"&&dirction!="right"){t.dx=i>=(amount/2)?0.1:-0.1;}
+ else{t.dx=dirction=="left"?-0.1:0.1};t.dy=-0.5-Math.random()/2
+ t.bonus=function(){this.dy+=0.02*(148/FPS);if(this.y>way&&this.dy>0){this.dy/=-2;this.life-=3}}
+ var1+=var2;Other.b.push(t);}}
+
+ function orbit(thing,center="zox",radius=100,speed=1.5)
+ {
+  thing.orbiting=false;
+  thing.orbitRadius=radius;
+  thing.target=center;
+  thing.move=function(){
+  this.d=Math.sqrt(Math.pow(eval(this.target).x-this.x,2)+Math.pow(eval(this.target).y-this.y,2));
+  if((this.d>this.orbitRadius+5)&&(!this.orbiting)){ 
+  this.x+=this.dx*(148/FPS);this.y+=this.dy*(148/FPS);
+  }
+  else{
+    this.move=function(){
+    if(!this.orbiting){this.angle=cor_2_sita((this.x-eval(center).x),(this.y-eval(center).y))[1]}
+    this.orbiting=true;
+    this.angle+=(speed*(148/FPS)/this.orbitRadius);if(this.angle>2*Math.PI){this.angle=0}
+    this.x=eval(center).x+sita_2_cor(this.orbitRadius,this.angle)[0];
+    this.y=eval(center).y+sita_2_cor(this.orbitRadius,this.angle)[1];
+    //this._show()
+    }
+  }
+  this._show()
+ }
 }
