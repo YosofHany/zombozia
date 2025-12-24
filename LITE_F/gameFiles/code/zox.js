@@ -5,7 +5,7 @@ zox.phase=0;
 zox.exists=0;
 zox.hitbox=36;
 zox.photo="zox_L_0";
-zox.distractor=function(){getMoney(19,this.x,this.y);document.getElementById("bossLife").innerHTML='';document.getElementById("bossLife").style="display:none"}
+zox.distractor=function(){getMoney(19,this.x,this.y);document.getElementById("bossLife").innerHTML='';document.getElementById("bossLife").style="display:none;";setTimeout(victory,1000)}
 zox.timeUp=230;zox.timeUp2=30;//timeUp is used in moves , timeUp2 is used in attacks
 
 zox._show=function(){c2.drawImage(eval(this.photo),this.x-38,this.y-50);}
@@ -55,7 +55,7 @@ zox.spawn=function()
  zox.phase=5-Math.ceil((zox.life/4500)*4);if(zox.phase>1){wakeSomeZombies("zox",2*zox.phase)}
  if(zox.phase>=2)
  {zox.dx=0;zox.dy=0;
-  zox.timeUp=800;zox.timeUp2=800;
+  zox.timeUp=800;zox.timeUp2=800;zox.photo=zox.photo.split("_")[0]+"_"+zox.photo.split("_")[1]+"_0";
   zox.attack=function()
   {
     if(zox.timeUp2>0){zox.timeUp2-=(148/FPS);}else{zox.attack=zox.attacks[0];}

@@ -49,3 +49,23 @@ class bullet
     t.range=r;
     bullet.b.push(t);}
 }
+class Rocket extends bullet
+{
+photo=rocket_R;
+static add(ex,way,DX,DY,DMG=30,usr,r=10){var t=new Rocket();t.x=ex;t.y=way;t.dx=DX;t.dy=DY;t.damage=DMG;t.photo=((DX>=0)?rocket_R:rocket_L);
+    t.shooter=usr;t.startx=usr.x;t.starty=usr.y;
+    t.range=r;
+    bullet.b.push(t);}
+  i=0;
+distractor(){boom(this.x,this.y);
+  var targets=4;
+  for(var g=Zomby.b.length;g>0;g--){
+  if(calkdistans(this.x,this.y,Zomby.b[g-1].x,Zomby.b[g-1].y)<79){damage(Zomby.b[g-1],this.damage);targets--;}
+  if(targets<1){g=0}
+  }}
+
+  spawn(){if(this.i>10){smoke(this.x,this.y,this.dx/-9,this.dy/9);this.i=0;}else{this.i+=(148/FPS);}
+  this.x+=this.dx*(148/FPS);this.y+=this.dy*(148/FPS);
+   c2.drawImage(this.photo,this.x-(this.photo.width/2),this.y-(this.photo.height/2),this.photo.width,this.photo.height);
+  }
+}

@@ -4,7 +4,7 @@ function getSeta(x1,y1,x2,y2){ let r1=Math.sqrt(x1*x1+y1*y1);
  let sita2=Math.acos(cos2);if(sin2<0){sita2=(2*Math.PI)-sita2} if(r1==0||r2==0){return 0}else{
  if((sita2-sita1)<0){return((sita2-sita1)+(2*Math.PI))}else{ return (sita2-sita1)};}}
 function sita_2_cor(r,sita){let x= r*Math.cos(sita);let y= r*Math.sin(sita);return[x,y];}
-// 1 degree= 0.017453293 radians
+// 1 degree = 0.017453293 radians
 function cor_2_sita(x,y){var r=Math.sqrt(Math.pow((x),2)+Math.pow((y),2));var cosinSita=x/r;var sinSita=y/r;var sita=Math.acos(cosinSita);if(sinSita<0){sita=(2*Math.PI)-sita;}if(r!=0){ return [r,sita]}else{return [0,0]}}
 function calkdistans(x1,y1,x2,y2){return(Math.sqrt(Math.pow((x2-x1),2)+Math.pow((y2-y1),2)));}
 function rfa(array,indox){let b=[];for(i=0;i<array.length-1;i++){if(i>=indox){b[i]=array[i+1]}else{b[i]=array[i]}}return b}
@@ -127,5 +127,60 @@ function stuff(ex,way,dirction="both",col="#4dd80c",amount=6)
     }
   }
   this._show()
+ }
+}
+function lazerPulse(ex,way,r,sita,target=null,power=50,dmg=null,color="#ff0700")
+{
+ let t = new Other();t.life=power;t.color=color;
+ t.spawn=function()
+ {
+  this.life-=0.6*(148/FPS);
+  let targetX=sita_2_cor(r,sita)[0]+ex;
+  let targetY=sita_2_cor(r,sita)[1]+way;
+  c2.beginPath();
+  c2.fillStyle=color;
+  c2.strokeStyle=color;
+  let change1=[sita_2_cor(this.life/2,sita+(90*(Math.PI/180)))[0],sita_2_cor(this.life/2,sita+(90*(Math.PI/180)))[1]];
+  let change2=[-change1[0],-change1[1]];
+  let p1=[ex+change1[0],way+change1[1]];let p2=[ex+change2[0],way+change2[1]];
+  let p3=[targetX+change1[0],targetY+change1[1]];let p4=[targetX+change2[0],targetY+change2[1]];
+  c2.lineTo(p1[0],p1[1]);
+  c2.lineTo(p2[0],p2[1]);
+  c2.lineTo(p4[0],p4[1]);// ^\o_o/^ 1 -> 2 -> 4 -> 3
+  c2.lineTo(p3[0],p3[1]);
+  c2.closePath();
+  c2.stroke();
+  c2.fill();
+ }
+ Other.b.push(t);
+ if(target!=null)
+ {
+  let slope=Math.tan(sita);
+  let b=slope*(-ex)+way;
+  for(let n=0;n<target.b.length;n++)
+  {
+   //console.log("ex = "+Math.round(ex)+", way ="+Math.round(way)+", target= ("+target.b[n].x+","+target.b[n].y+"), b="+Math.round(b)+", slop="+Math.round(slope*100)/100);
+   let D= Math.abs(-slope*(target.b[n].x/b)+(target.b[n].y/b)-1)/Math.sqrt(Math.pow(1/b,2)*(1+slope*slope));
+   console.log("D = "+D);
+   if(D<(power/2)+target.b[n].hitbox)
+   {
+    let S1=getSeta(1,0,target.b[n].x-ex,target.b[n].y-way,);
+    let s1MinusSita=Math.min(Math.abs(S1-sita),Math.abs((Math.min(S1,sita))-(Math.max(S1,sita)-2*Math.PI)));
+    console.log("S1 = " +Math.round(S1*(180/Math.PI))+", sita = "+Math.round(sita*(180/Math.PI)));
+    if(s1MinusSita<0.7)
+    {
+     damage(target.b[n],dmg);
+    }
+   }
+  }
+ }
+}
+function victory()
+{
+ if(confirm("VICTORY !!! \n\n Return to menu ?"))
+ {
+  document.querySelector("body").innerHTML+='<form action="../Game.html" style="display:hidden" id="formIJustCreated"></form>';
+  document.querySelector("#formIJustCreated").submit()
+
  }
 }

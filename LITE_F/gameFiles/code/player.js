@@ -25,11 +25,11 @@ var player= {
  }
  }
 }
-document.addEventListener("keydown",event =>{if(event.key=="ArrowUp"||event.key=="w"){ player.dy=-1.5;}});
-document.addEventListener("keyup",event =>{if(event.key=="ArrowUp"||event.key=="w"){player.dy=0;}});
-document.addEventListener("keydown",event =>{if(event.key=="ArrowDown"||event.key=="s"){player.dy=1.5;}});
-document.addEventListener("keyup",event =>{if(event.key=="ArrowDown"||event.key=="s"){player.dy=0;}});
-document.addEventListener("keydown",event =>{if(event.key=="ArrowLeft"||event.key=="a"){player.dx=-1.5;player.photo=Weapon.currentW+"_L"+Weapon.currS;}});
-document.addEventListener("keyup",event =>{if(event.key=="ArrowLeft"||event.key=="a"){player.dx=0;}});
-document.addEventListener("keydown",event =>{if(event.key=="ArrowRight"||event.key=="d"){player.dx=1.5;player.photo=Weapon.currentW+"_R"+Weapon.currS;}});
-document.addEventListener("keyup",event =>{if(event.key=="ArrowRight"||event.key=="d"){player.dx=0;}});
+document.addEventListener("keydown",event =>{if(event.key=="ArrowUp"||event.key=="W"||event.key=="w"){ player.dy=-1.5;}});
+document.addEventListener("keyup",event =>{if(event.key=="ArrowUp"||event.key=="W"||event.key=="w"){player.dy=0;}});
+document.addEventListener("keydown",event =>{if(event.key=="ArrowDown"||event.key=="S"||event.key=="s"){player.dy=1.5;}});
+document.addEventListener("keyup",event =>{if(event.key=="ArrowDown"||event.key=="S"||event.key=="s"){player.dy=0;}});
+document.addEventListener("keydown",event =>{if(event.key=="ArrowLeft"||event.key=="A"||event.key=="a"){player.dx=-1.5;player.photo=Weapon.currentW+"_L"+Weapon.currS;}});
+document.addEventListener("keyup",event =>{if(event.key=="ArrowLeft"||event.key=="A"||event.key=="a"){player.dx=0;}});
+document.addEventListener("keydown",event =>{if(event.key=="ArrowRight"||event.key=="D"||event.key=="d"){player.dx=1.5;player.photo=Weapon.currentW+"_R"+Weapon.currS;}});
+document.addEventListener("keyup",event =>{if(event.key=="ArrowRight"||event.key=="D"||event.key=="d"){player.dx=0;}});

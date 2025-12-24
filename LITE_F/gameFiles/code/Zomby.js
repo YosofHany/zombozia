@@ -32,7 +32,7 @@ _show(){this.photo="z_"+((this.dx<0)?"L":"R");
   bounus(){}
 spawn(){
  this.bodyx=eval(this.target).x-this.x;this.bodyy=eval(this.target).y-this.y;
- console.log("spawning a zomby");
+ //console.log("spawning a zomby");
  this.d=Math.sqrt(Math.pow(this.bodyx,2)+Math.pow(this.bodyy,2));
  this.dx=(this.bodyx/this.d)*this.speed;
  this.dy=(this.bodyy/this.d)*this.speed;
@@ -60,7 +60,7 @@ static sspawn(start , oh)
      if(Math.random()>0.5){
      Zomby.add((Math.random()>0.5)?-9:830,Math.random()*512);if(Oh>200){Oh-=18}}else{
      Zomby.add(Math.random()*830,(Math.random()>0.5)?-9:512);if(Oh>200){Oh-=18}}
-     console.log("Zomby.timing "+Zomby.timing);
+     //console.log("Zomby.timing "+Zomby.timing);
      }
     }
   }
