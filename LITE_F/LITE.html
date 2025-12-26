@@ -36,16 +36,17 @@ body{background-color: #269d77;text-align: center;}
 <div style="height: 512px;width: 120px;display:inline-block;"></div>
 <canvas id="c"></canvas><div  style="height: 512px;width: 80px;display:inline-block;"></div>
 <div style="display: inline-block;"> 
-<img src="gameFiles/gun.png" class="w" onclick='Weapon.currS="";if(Weapon.currentW!="gun"){Weapon.buy("gun",20,"cell")}else{Weapon.currentW="man";document.getElementById("style1").innerHTML="canvas{cursor:default;}"}player.photo=Weapon.currentW+"_"+player.photo.split("_")[1]+Weapon.currS;weponSelected()'>
+<img src="gameFiles/gun.png" class="w" onmousedown='Weapon.currS="";if(Weapon.currentW!="gun"){Weapon.buy("gun",20,"cell")}else{Weapon.currentW="man";document.getElementById("style1").innerHTML="canvas{cursor:default;}"}player.photo=Weapon.currentW+"_"+player.photo.split("_")[1]+Weapon.currS;weponSelected()'>
 </img><br><span id="gun">20$</span><br>
 <img src="gameFiles/bazooka.png" class="w"
- onclick='if(Weapon.currentW!="bazooka"){if(Weapon.buy("bazooka",30,"cell")){Weapon.currS=(bazooka.coolup>=bazooka.cooldown?"":"_0");}}else{Weapon.currentW="man";Weapon.currS="";document.getElementById("style1").innerHTML="canvas{cursor:default;}"}player.photo=Weapon.currentW+"_"+player.photo.split("_")[1]+Weapon.currS;weponSelected()'>
+ onmousedown='if(Weapon.currentW!="bazooka"){if(Weapon.buy("bazooka",30,"cell")){Weapon.currS=(bazooka.coolup>=bazooka.cooldown?"":"_0");}}else{Weapon.currentW="man";Weapon.currS="";document.getElementById("style1").innerHTML="canvas{cursor:default;}"}player.photo=Weapon.currentW+"_"+player.photo.split("_")[1]+Weapon.currS;weponSelected()'>
 </img><br><span id="bazooka">30$</span><br>
-<img src="gameFiles/autoGun.png" class="w" onclick='Weapon.currS="";if(Weapon.currentW!="autoGun"){Weapon.buy("autoGun",50,"cell")}else{Weapon.currentW="man";document.getElementById("style1").innerHTML="canvas{cursor:default;}"}player.photo=Weapon.currentW+"_"+player.photo.split("_")[1]+Weapon.currS;weponSelected()'>
+<img src="gameFiles/autoGun.png" class="w" onmousedown='Weapon.currS="";if(Weapon.currentW!="autoGun"){Weapon.buy("autoGun",50,"cell")}else{Weapon.currentW="man";document.getElementById("style1").innerHTML="canvas{cursor:default;}"}player.photo=Weapon.currentW+"_"+player.photo.split("_")[1]+Weapon.currS;weponSelected()'>
 </img><br><span id="autoGun">50$</span><br>
-<img src="gameFiles/lazer.png" class="w" onclick='Weapon.currS="";if(Weapon.currentW!="lazer"){Weapon.buy("lazer",80,"crosshair")}else{Weapon.currentW="man";document.getElementById("style1").innerHTML="canvas{cursor:default;}"}player.photo=Weapon.currentW+"_"+player.photo.split("_")[1]+Weapon.currS;weponSelected()'></img>
+<img src="gameFiles/lazer.png" class="w" onmousedown='Weapon.currS="";if(Weapon.currentW!="lazer"){Weapon.buy("lazer",80,"crosshair")}else{Weapon.currentW="man";document.getElementById("style1").innerHTML="canvas{cursor:default;}"}player.photo=Weapon.currentW+"_"+player.photo.split("_")[1]+Weapon.currS;weponSelected()'></img>
 <br><span>80$</span></div>
 </body>
+<!--script src="gameFiles/code/DontDoThat.js"></script--> 
 <script src="gameFiles/code/functions.js"></script>
 <script src="gameFiles/code/emages.js"></script>
 <script src="gameFiles/code/player.js"></script>
@@ -53,7 +54,6 @@ body{background-color: #269d77;text-align: center;}
 <script src="gameFiles/code/zox.js"></script>
 <script src="gameFiles/code/Mward.js"></script>
 <script src="gameFiles/code/bullet.js"></script>
-<script src="gameFiles/code/DontDoThat.js"></script> 
 <script>
 var c =document.querySelector("canvas");
 
@@ -110,14 +110,13 @@ else{alert(`\n         DEAD \n\nmoney collected : `+player.mony+"\nzombies kille
  c2.fillStyle="#085422";
  c2.fillRect(0,0,c.width,c.height);
 
-if(zombykilled>34){if(zox.exists==0){zox.appear();}}
-
-Mward.sspawn(1100);
-Other.sspawn();
-Zomby.sspawn(2000,1700);
+ if(zombykilled>34){if(zox.exists==0){zox.appear();}}
+ Mward.sspawn(1100);
+ Other.sspawn();
+ Zomby.sspawn(2000,1700);
 //Zomby.sspawn(Infinity,1700);
-bullet.sspawn();
-player.spawn();
+ bullet.sspawn();
+ player.spawn();
 //checkTheWindow();
 }
 time();

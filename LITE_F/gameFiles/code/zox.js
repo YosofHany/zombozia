@@ -5,7 +5,10 @@ zox.phase=0;
 zox.exists=0;
 zox.hitbox=36;
 zox.photo="zox_L_0";
-zox.distractor=function(){getMoney(19,this.x,this.y);document.getElementById("bossLife").innerHTML='';document.getElementById("bossLife").style="display:none;";setTimeout(victory,1000)}
+zox.distractor=function(){getMoney(19,this.x,this.y);document.getElementById("bossLife").innerHTML='';document.getElementById("bossLife").style="display:none;";setTimeout(victory,1000);Mward.sspawn=function(){
+ Mward.b.forEach(function(element,indix){
+ if(element.valu<10){element.distrtactor();Mward.b=rfa(Mward.b,indix);}
+ element.spawn()});}}
 zox.timeUp=230;zox.timeUp2=30;//timeUp is used in moves , timeUp2 is used in attacks
 
 zox._show=function(){c2.drawImage(eval(this.photo),this.x-38,this.y-50);}

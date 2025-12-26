@@ -180,7 +180,10 @@ function victory()
  if(confirm("VICTORY !!! \n\n Return to menu ?"))
  {
   document.querySelector("body").innerHTML+='<form action="../Game.html" style="display:hidden" id="formIJustCreated"></form>';
-  document.querySelector("#formIJustCreated").submit()
-
+  document.querySelector("#formIJustCreated").submit();
+  
  }
+ player.dx=0;player.dy=0;
+ let c=["a","s","d","w"]
+ for (let i=0;i<4;i++){btns[c[i]]=false;}
 }
