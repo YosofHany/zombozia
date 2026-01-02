@@ -6,7 +6,6 @@ class Weapon
  cooldown=200;
  coolup=0;
  damage=30;
- //user=player;
  fire(tx,ty){
  player.photo=Weapon.currentW+"_"+(tx>player.x?"R":"L")+Weapon.currS;
 
@@ -41,8 +40,8 @@ stopFiring(){}
    else{return false;}
  } 
 }
-var gun=new Weapon();gun.name="gun";gun.cooldown=100;
-var bazooka=new Weapon();bazooka.name="bazooka";bazooka.cooldown=400;bazooka.damage=70;
+var gun=new Weapon();gun.name="gun";gun.cooldown=100;gun.coolup=90;
+var bazooka=new Weapon();bazooka.name="bazooka";bazooka.cooldown=400;bazooka.damage=70;bazooka.coolup=390;
 bazooka.spawn=function(){if(this.coolup<this.cooldown){this.coolup+=(148/FPS);}
 else{player.photo=player.photo.substring(0,9);Weapon.currS=""}
 }
@@ -61,7 +60,8 @@ if(this.coolup>=this.cooldown){this.coolup=0;
  player.photo="bazooka_"+(tx>player.x?"R":"L")+"_0";
 }
 };bazooka.bltspeed=5;
-var autoGun =new Weapon();autoGun.name="autoGun";autoGun.fire=function(){player.photo=Weapon.currentW+"_"+(pointX>player.x?"R":"L");
+var autoGun =new Weapon();autoGun.name="autoGun";autoGun.cooldown=30;
+autoGun.fire=function(){player.photo=Weapon.currentW+"_"+(pointX>player.x?"R":"L");
 this.coolup=1;
 }
 autoGun.stopFiring=function(){this.coolup=0;}

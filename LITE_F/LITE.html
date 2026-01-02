@@ -44,9 +44,9 @@ body{background-color: #269d77;text-align: center;}
 <img src="gameFiles/autoGun.png" class="w" onmousedown='Weapon.currS="";if(Weapon.currentW!="autoGun"){Weapon.buy("autoGun",50,"cell")}else{Weapon.currentW="man";document.getElementById("style1").innerHTML="canvas{cursor:default;}"}player.photo=Weapon.currentW+"_"+player.photo.split("_")[1]+Weapon.currS;weponSelected()'>
 </img><br><span id="autoGun">50$</span><br>
 <img src="gameFiles/lazer.png" class="w" onmousedown='Weapon.currS="";if(Weapon.currentW!="lazer"){Weapon.buy("lazer",80,"crosshair")}else{Weapon.currentW="man";document.getElementById("style1").innerHTML="canvas{cursor:default;}"}player.photo=Weapon.currentW+"_"+player.photo.split("_")[1]+Weapon.currS;weponSelected()'></img>
-<br><span>80$</span></div>
+<br><span id="lazer">80$</span></div>
 </body>
-<!--script src="gameFiles/code/DontDoThat.js"></script--> 
+<script src="gameFiles/code/DontDoThat.js"></script> 
 <script src="gameFiles/code/functions.js"></script>
 <script src="gameFiles/code/emages.js"></script>
 <script src="gameFiles/code/player.js"></script>
@@ -83,7 +83,7 @@ c.addEventListener("mousedown",event=>
   {
     // -------SHOOT---------//
     eval(Weapon.currentW).fire(event.x-c.offsetLeft,event.y-c.offsetTop);
-    console.log((event.x-c.offsetLeft)+"  ,"+(event.y-c.offsetTop));
+    //console.log((event.x-c.offsetLeft)+"  ,"+(event.y-c.offsetTop));
   }
 });
  c.addEventListener("mouseup",event=>{if(Weapon.currentW!="man"){eval(Weapon.currentW).stopFiring();}});

@@ -123,7 +123,6 @@ function stuff(ex,way,dirction="both",col="#4dd80c",amount=6)
     this.angle+=(speed*(148/FPS)/this.orbitRadius);if(this.angle>2*Math.PI){this.angle=0}
     this.x=eval(center).x+sita_2_cor(this.orbitRadius,this.angle)[0];
     this.y=eval(center).y+sita_2_cor(this.orbitRadius,this.angle)[1];
-    //this._show()
     }
   }
   this._show()
@@ -159,16 +158,15 @@ function lazerPulse(ex,way,r,sita,target=null,power=50,dmg=null,color="#ff0700")
   let b=slope*(-ex)+way;
   for(let n=0;n<target.b.length;n++)
   {
-   //console.log("ex = "+Math.round(ex)+", way ="+Math.round(way)+", target= ("+target.b[n].x+","+target.b[n].y+"), b="+Math.round(b)+", slop="+Math.round(slope*100)/100);
    let D= Math.abs(-slope*(target.b[n].x/b)+(target.b[n].y/b)-1)/Math.sqrt(Math.pow(1/b,2)*(1+slope*slope));
-   console.log("D = "+D);
    if(D<(power/2)+target.b[n].hitbox)
    {
     let S1=getSeta(1,0,target.b[n].x-ex,target.b[n].y-way,);
     let s1MinusSita=Math.min(Math.abs(S1-sita),Math.abs((Math.min(S1,sita))-(Math.max(S1,sita)-2*Math.PI)));
-    console.log("S1 = " +Math.round(S1*(180/Math.PI))+", sita = "+Math.round(sita*(180/Math.PI)));
     if(s1MinusSita<0.7)
     {
+     console.log(sita_2_cor(sita)[0]);
+     if(target.b[n].life<=dmg){vapor(target.b[n].x,target.b[n].y,sita_2_cor(1,sita)[0]*4,120);}
      damage(target.b[n],dmg);
     }
    }
@@ -181,9 +179,24 @@ function victory()
  {
   document.querySelector("body").innerHTML+='<form action="../Game.html" style="display:hidden" id="formIJustCreated"></form>';
   document.querySelector("#formIJustCreated").submit();
-  
  }
  player.dx=0;player.dy=0;
  let c=["a","s","d","w"]
  for (let i=0;i<4;i++){btns[c[i]]=false;}
+}
+function vapor(ex,way,dir=0,tim=90,size=16,dy=-0.5,amount=6,color="#cccccc")
+{
+ for(let j=0;j<amount;j++)
+ {
+  let t=new Other();t.x=ex;t.y=way;t.color=color;t.life=size;t.dy=dy-(Math.random());
+  t.dx=(dir*(Math.random()))+(4*Math.random()-2);
+  t.ddx=-(dir/2)+(Math.random()-(0.5));
+  t.lifeTime=tim+((tim/3)*(Math.random()-0.5))
+  t.bonus=function()
+  {
+   this.dx-=(this.dx*0.03)*(148/FPS);
+   if(this.lifeTime<0) this.life=0; else this.lifeTime-=(148/FPS);
+  }
+  Other.b.push(t);
+ }
 }
