@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title>
+  </title>
+  <link rel="icon" href="gameFiles/icon.png" >
+  <link rel="stylesheet" href="./gameFiles/code/b.css">
+  <style id="style1">
+ </style>
+ </head>
+ <body>
+  <canvas id="c"></canvas><div  style="height: 512px;width: 80px;display:inline-block;"></div>
+ <div style="display: inline-block;" id="side"> 
+ </div>
+ </body>
+ <script src="gameFiles/code/DontDoThat.js"></script>
+ <script src="gameFiles/code/functions.js"></script>
+ <script src="gameFiles/code/emages.js"></script>
+ <script src="gameFiles/code/player.js"></script>
+ <script src="gameFiles/code/Zomby.js"></script>
+ <script src="gameFiles/code/Mward.js"></script>
+ <script src="gameFiles/code/bullet.js"></script>
+ <script src="gameFiles/code/canvas.js"></script>
+ <script src="gameFiles/code/Other.js"></script>
+ <script src="gameFiles/code/Weapon.js"></script>
+ <script src="gameFiles/code/Building.js"></script>
+ <script>
+ document.body.innerHTML=playerStatusFunction()+document.body.innerHTML;
+ theCanvasFunction();
+ let side =document.getElementById("side")
+ for(w of Weapon.pickedWepons){side.innerHTML+=weaponFunction(w)}
+ Weapon.ownedWepons.push("screwDriver");
+ function time()
+ {
+  if(player.life>0)
+  {
+   setTimeout(time,1000/FPS);
+  }
+  else{alert(`\n         DEAD \n\nmoney collected : `+player.mony+"\nzombies killed     : "+zombykilled);return;}
+  c2.fillStyle=groundColor;
+  c2.fillRect(0,0,c.width,c.height);
+  
+  Mward.sspawn(1100);
+
+  //Zomby.sspawn(2000,1700);
+  //Zomby.sspawn(Infinity,1700);
+  bullet.sspawn();
+  player.spawn();
+  //checkTheWindow();
+  Other.sspawn();
+ }
+ time();
+ </script>
+</html>

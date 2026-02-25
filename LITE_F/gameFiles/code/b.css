@@ -1,0 +1,7 @@
+/*div{height: 100px;width: 300px;border: 6px solid green;display:inline-block;}*/
+canvas{border: 4px solid #173737;background-color: #085422;display: inline-block;}
+.life{text-wrap-mode:nowrap;display:block;text-align:start;border: 4px solid black; width:200px;font-size:20px;color:white;}
+#floose{display:block;text-align:left;color:#d4ed19;font-size:20px;font-family:Script MT;font-style: italic;}
+/*#weapons{display: inline-block; background-color: aliceblue;height: 512px;}*/
+body{background-color: #269d77;text-align: center;}
+.w{border: 2px solid rgb(0, 0, 0);margin-top:50px;}

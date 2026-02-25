@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<!--
+the player character should take ~ 3.6 seconds to run the map from left to right (785 pixls)
+player speed=1.5  , vilocity = 222   px/s
+zomby speed =1.2  , vilocity = 177.6 px/s
+-->
+<link rel="icon" href="gameFiles/icon.png" >
+<link rel="stylesheet" href="./gameFiles/code/b.css">
+<style id="style1">
+</style>
+<body>
+<div style="height: 512px;width: 120px;display:inline-block;"></div>
+<canvas id="c"></canvas><div  style="height: 512px;width: 80px;display:inline-block;"></div>
+<div style="display: inline-block;" id="side"> 
+</div>
+</body>
+<script src="gameFiles/code/DontDoThat.js"></script> 
+<script src="gameFiles/code/functions.js"></script>
+<script src="gameFiles/code/emages.js"></script>
+<script src="gameFiles/code/player.js"></script>
+<script src="gameFiles/code/Zomby.js"></script>
+<script src="gameFiles/code/zox.js"></script>
+<script src="gameFiles/code/Mward.js"></script>
+<script src="gameFiles/code/bullet.js"></script>
+<script src="gameFiles/code/canvas.js"></script>
+<script src="gameFiles/code/Other.js"></script>
+<script src="gameFiles/code/Weapon.js"></script>
+<script>
+document.body.innerHTML=playerStatusFunction()+document.body.innerHTML;
+theCanvasFunction();
+let side =document.getElementById("side")
+for(w of Weapon.pickedWepons){side.innerHTML+=weaponFunction(w)}
+let camx=0;
+let camy=0;
+player.x=c.clientWidth/2
+player.y=c.clientHeight/2
+Mward.add(20+Math.random()*800,40+Math.random()*450);Mward.add(20+Math.random()*800,40+Math.random()*450);
+handleRightClick=function(){}
+function time(){//\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\--VOID UPDATE--/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+if(player.life>0){setTimeout(time,1000/FPS);}
+else{alert(`\n         DEAD \n\nmoney collected : `+player.mony+"\nzombies killed     : "+zombykilled);return;}
+ //requestAnimationFrame(time);
+ c2.fillStyle=groundColor;
+ c2.fillRect(0,0,c.width,c.height);
+ if(zombykilled>34){if(!zox.exists){zox.appear();}}
+ Mward.sspawn(1100);
+ Other.sspawn();
+ Zomby.sspawn(2000,1700);
+ //Zomby.sspawn(Infinity,1700);
+ bullet.sspawn();
+ player.spawn();
+//checkTheWindow();
+}
+time();
+</script></html>
