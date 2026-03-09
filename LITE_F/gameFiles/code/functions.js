@@ -8,6 +8,18 @@ function sita_2_cor(r,sita){let x= r*Math.cos(sita);let y= r*Math.sin(sita);retu
 function cor_2_sita(x,y){var r=Math.sqrt(Math.pow((x),2)+Math.pow((y),2));var cosinSita=x/r;var sinSita=y/r;var sita=Math.acos(cosinSita);if(sinSita<0){sita=(2*Math.PI)-sita;}if(r!=0){ return [r,sita]}else{return [0,0]}}
 function calkdistans(x1,y1,x2,y2){return(Math.sqrt(Math.pow((x2-x1),2)+Math.pow((y2-y1),2)));}
 function rfa(array,indox){let b=[];for(i=0;i<array.length-1;i++){if(i>=indox){b[i]=array[i+1]}else{b[i]=array[i]}}return b}
+function removFromArray(arr=[],indxs=[])
+{
+ let result=[];
+ for(let i=0;i<arr.length;i++)
+ {
+  if(!indxs.includes(i))
+  {
+   result.push(arr[i]);
+  }
+ }
+ return result;
+}
 function damage (target , dmg){target.life-=dmg;}
 function boom(X,Y)
 {
