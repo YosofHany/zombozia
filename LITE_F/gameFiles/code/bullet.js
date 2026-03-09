@@ -17,30 +17,24 @@ class bullet
   }
   static sspawn()
   {
-
-
     for(var a=0;a<(bullet.b.length);a++){bullet.b[a].spawn();
     if(calkdistans(bullet.b[a].x,bullet.b[a].y,bullet.b[a].startx,bullet.b[a].starty)>100*bullet.b[a].range){ bullet.b=rfa(bullet.b,a)}
-
     };
-
-
-
-
-    for(var a=0;a<(bullet.b.length);a++)
+   let dead=[];
+   for(var a=0;a<(bullet.b.length);a++)
+   {
+    for(var x=0;x<(Zomby.b.length);x++)
     {
-     for(var x=0;x<(Zomby.b.length);x++){
+     if(calkdistans(Zomby.b[x].x,Zomby.b[x].y,bullet.b[a].x,bullet.b[a].y)<Zomby.b[x].hitbox)
+     {
+      damage(Zomby.b[x],(bullet.b[a].damage));
+      bullet.b[a].distractor();
+      dead.push(a);
       
-      
-        if(calkdistans(Zomby.b[x].x,Zomby.b[x].y,bullet.b[a].x,bullet.b[a].y)<Zomby.b[x].hitbox)
-        {
-         damage(  Zomby.b[x],(bullet.b[a].damage));
-         bullet.b[a].distractor();
-         bullet.b=rfa(bullet.b,a);
-         break;
-        }
-      }
+     }
     }
+   }
+   bullet.b=removFromArray(bullet.b,dead)
   }
   
 

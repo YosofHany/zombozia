@@ -60,17 +60,19 @@ static sspawn(start , oh)
      if(Math.random()>0.5){
      Zomby.add((Math.random()>0.5)?-9:830,Math.random()*512);if(Oh>200){Oh-=18}}else{
      Zomby.add(Math.random()*830,(Math.random()>0.5)?-9:512);if(Oh>200){Oh-=18}}
-     //console.log("Zomby.timing "+Zomby.timing);
      }
     }
   }
-
- for(var x=0;x<(Zomby.b.length);x++)
+ let deadPeople=[];
+ for(let x=0;x<(Zomby.b.length);x++)
  {
-  if(Zomby.b[x].life<=1){Zomby.b[x].distractor();zombykilled++;Zomby.b=rfa(Zomby.b,x);
-  break}
+  if(Zomby.b[x].life<=1)
+  {
+   Zomby.b[x].distractor();zombykilled++;
+   deadPeople.push(x);
+  }
  }
-
+ Zomby.b=removFromArray(Zomby.b,deadPeople);
 
   Zomby.b.forEach(function(element){element.spawn()});
 }
