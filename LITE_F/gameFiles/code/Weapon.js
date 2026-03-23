@@ -16,7 +16,7 @@ class Weapon
  fire(tx,ty){
  player.photo=Weapon.currentW+"_"+(tx>player.x?"R":"L")+Weapon.currS;
 if(this.coolup>=this.cooldown){this.coolup=0;
-  bullet.add(
+ bullet.add(
  player.x,
  player.y,
  this.bltspeed*((tx-player.x)/calkdistans(player.x,player.y,tx,ty)),

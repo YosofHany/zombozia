@@ -17,7 +17,7 @@ function theCanvasFunction(hyt=512,wdth=828,clr="#085422",fps=40)
    {
     for(var o=0;o<Mward.b.length;o++)
     {if(calkdistans(Mward.b[o].x,Mward.b[o].y,(event.x-c.offsetLeft),(event.y-c.offsetTop))<45)
-    {if(calkdistans(Mward.b[o].x,Mward.b[o].y,player.x,player.y)<70){Mward.b[o].getmined(8);continue;}}}
+    {if(calkdistans(Mward.b[o].x,Mward.b[o].y,player.x,player.y)<player.range){Mward.b[o].getmined(8);continue;}}}
    }
    else if(mode=="fight")
    {
@@ -26,13 +26,38 @@ function theCanvasFunction(hyt=512,wdth=828,clr="#085422",fps=40)
    }
    else if(mode=="build")
    {
-    
+    if(pointY>(c.height-(c.height-buildingMenu.y)-25)&&Math.abs(pointX-(c.clientWidth)/2)<buildingMenu.width/2)
+    {
+     let number=Math.round((pointX-buildingMenu.options[0].place)/(buildingMenu.width/buildingMenu.options.length));
+     if((buildingMenu.optionSelected-1)!=number)
+     {
+      for(const i of buildingMenu.options){i.color="#fff200"}
+      buildingMenu.optionSelected=number+1
+      buildingMenu.options[number].color="#0ec00e";
+     }
+    }
+    else
+    {
+     let willBuild =true;
+     for(const i of Building.b){if(calkdistans(pointX,pointY,i.x,i.y)<20){willBuild =false;console.log("upgrading...");break;}}
+     if(willBuild)
+     {
+      let buildingName=buildingMenu.options[buildingMenu.optionSelected-1].typ.name;
+      buildCost=eval("new Building."+buildingName).cost;
+      if((player.mony>=buildCost)&&(calkdistans(pointX,pointY,player.x,player.y)<player.range)&&(Building.b[Building.b.length-1]?Building.b[Building.b.length-1].Blt:true))
+      {
+
+       player.mony-=buildCost;
+       Building.build(buildingName,pointX,pointY);
+      }
+     }
+    }
    }
   }
  });
  document.addEventListener('contextmenu', event=>
  {
- event.preventDefault(); console.log("hellooooww");
+ event.preventDefault();//console.log("hellooooww");
   if(mode=="mine")
   {
    handleRightClick();
@@ -55,6 +80,10 @@ function theCanvasFunction(hyt=512,wdth=828,clr="#085422",fps=40)
  {
   pointX=(event.x-c.offsetLeft);
   pointY=(event.y-c.offsetTop);
+
+
+
+
  });
  globalThis.zombykilled=0;
 }

@@ -3,6 +3,7 @@ var player= {
  dy  :0,
  mony:0,
  life:100,
+ range:70,
  maxLife:100,
  speed:1.5,
  photo:"man_R",
