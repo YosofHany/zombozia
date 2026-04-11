@@ -1,5 +1,4 @@
-function theCanvasFunction(hyt=512,wdth=828,clr="#085422",fps=40)
-{
+function theCanvasFunction1(hyt=512,wdth=828,clr="#085422",fps=40){
  globalThis.c =document.querySelector("canvas");
  c.width=wdth;
  c.height=hyt;
@@ -8,7 +7,10 @@ function theCanvasFunction(hyt=512,wdth=828,clr="#085422",fps=40)
  globalThis.mode ="mine";
  globalThis.mony =document.getElementById("floose");
  globalThis.pointX=0;globalThis.pointY=0;
- globalThis.FPS = fps;
+ globalThis.FPS = fps;}
+function theCanvasFunction(hy=512,wdt=828,cl="#085422",fp=40)
+{
+ theCanvasFunction1(hy,wdt,cl,fp);
  c.addEventListener("mousedown",event=>
  {
   if(!event.button)
@@ -46,7 +48,6 @@ function theCanvasFunction(hyt=512,wdth=828,clr="#085422",fps=40)
       buildCost=eval("new Building."+buildingName).cost;
       if((player.mony>=buildCost)&&(calkdistans(pointX,pointY,player.x,player.y)<player.range)&&(Building.b[Building.b.length-1]?Building.b[Building.b.length-1].Blt:true))
       {
-
        player.mony-=buildCost;
        Building.build(buildingName,pointX,pointY);
       }
@@ -71,24 +72,15 @@ function theCanvasFunction(hyt=512,wdth=828,clr="#085422",fps=40)
    handleRightClick();
   }
  });
-
-
-
  c.addEventListener("mouseup",event=>{if(Weapon.currentW!="man"){eval(Weapon.currentW).stopFiring();}});
  c.addEventListener("mouseleave",event=>{if(Weapon.currentW!="man"){eval(Weapon.currentW).stopFiring();}});
  c.addEventListener("mousemove",event=>
  {
   pointX=(event.x-c.offsetLeft);
   pointY=(event.y-c.offsetTop);
-
-
-
-
  });
  globalThis.zombykilled=0;
 }
-
-
 function handleRightClick()
  {
   if(globalThis.mode=="mine")

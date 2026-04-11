@@ -3,14 +3,11 @@ class Building
  static pickedBuildings=["tower"];
  static build(typ="tower",ex,way)
  {
-  //if(Building.b[Building.b.length-1].Blt>=1)
-  //{
    let t =new (eval("Building."+typ))();
    t.x=ex;t.y=way
    Building.b.push(t);
    t.photo=eval(t.name);
    return t;
-  //}
  }
  static b = [];
  static sspawn=function()

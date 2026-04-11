@@ -3,6 +3,7 @@ class bullet
   damage=30;
   x=0;y=0;dx=0;dy=0;
   startx=0;starty=0;
+  life=5;
   shooter={};
   range=10;
   photo=blt_R;
@@ -25,12 +26,12 @@ class bullet
    {
     for(var x=0;x<(Zomby.b.length);x++)
     {
-     if(calkdistans(Zomby.b[x].x,Zomby.b[x].y,bullet.b[a].x,bullet.b[a].y)<Zomby.b[x].hitbox)
+     if(calkdistans(Zomby.b[x].x,Zomby.b[x].y,bullet.b[a].x,bullet.b[a].y)<Zomby.b[x].hitbox&&(bullet.b[a].life>0))
      {
       damage(Zomby.b[x],(bullet.b[a].damage));
       bullet.b[a].distractor();
       dead.push(a);
-      
+      bullet.b[a].life=0;
      }
     }
    }

@@ -1,10 +1,129 @@
-<html>
-<head>
-<title>
-MAP
-</title>
-</head>
-<body >
-this is the map
+<html><head><title>
+THE MAP
+</title></head>
+<body style="text-align:center;background-color:#333333;">
+<!--this is the map-->
+<canvas style="border: 4px solid #ff6844"></canvas>
 </body>
+<script src="./gameFiles/code/functions.js"></script>
+<script src="./gameFiles/code/canvas.js"></script>
+<script src="./gameFiles/code/Other.js"></script>
+<script>
+let lighterColor=(st)=>
+{
+ let hex=st.substring(1);
+ let arrr=[hex.substring(0,2),hex.substring(2,4),hex.substring(4)]
+ for(const i of [0,1,2]){arrr[i]=(+("0x"+arrr[i]))+(i==0?(2):(i==1?87:68))}
+ for(const i of [0,1,2]){arrr[i]=arrr[i].toString(16)}
+ hex="#";for(const i of [0,1,2]){hex+=arrr[i]}
+ return hex;
+}
+var levelb=[]
+function newLevel(ex,way,name,valu,cleared=-1,whereToPutTheName=[20,20],color="#fd1100",nameColor="#111111")
+{
+ //cleared: -2=nonvisible ,-1=undescovered ,0=descovered ,1=cleared(1star) ,2=cleared(2stars) ,3=cleared(3stars)
+ let t=new Other();t.x=ex;t.y=way;t.valu=valu;t.name=name;t.color=color;t.cleared=cleared;t._=whereToPutTheName;
+ t.color2=lighterColor(t.color,2);t.nameColor=nameColor;
+ t.spawn=function()
+ {
+  if(this.cleared>-2)
+  {
+   if(this.cleared>=0)
+   {
+    c2.fillStyle=this.color;
+    c2.beginPath();c2.arc(this.x,this.y,16,0,6);c2.closePath();c2.stroke();c2.fill();
+   }
+   if(this.cleared>=0)
+   {
+    c2.fillStyle=this.nameColor;c2.font="23px monospace";c2.fillText(this.name,this.x+this._[0],this.y+this._[1]);
+    c2.fillStyle=this.color2;
+   }
+   else{c2.fillStyle="#444444";}
+   c2.beginPath();c2.arc(this.x,this.y,10,0,6);c2.closePath();c2.stroke();c2.fill();
+  }
+ }
+ levelb.push(t);
+ return t;
+}
+function newLine(from=[,],to=[,],fnc=function(){},time="notSet",l=8)
+{
+ let t=new Other();t.l=l;
+ t.startX=from[0];t.startY=from[1];
+ t.endX=to[0];t.endY=to[1];
+ t.slop=((t.endY)-(t.startY))/((t.endX)-(t.startX));
+ t.d=calkdistans(t.startX,t.startY,t.endX,t.endY)
+ if(time=="notSet"){time=t.d*2;console.log("time= "+time);}
+ t.n=Math.floor(t.d/(l+5));//n : lines to be drawn, _n : lines drawd
+ t.coolDown=time/t.n;t.coolUp=0;
+ if(time==0){t._n=t.n;t.count=function(){}}else{t._n=0;
+ t.count=function()
+ {
+  if(this._n<this.n){if(this.coolUp<this.coolDown){this.coolUp+=(148/FPS);}else{this._n++;this.coolUp=0;}}
+  else
+  {
+   fnc();
+   this.count=function(){}
+  }
+ }}
+ t.spawn=function()
+ {
+  this.count();
+  c2.lineWidth=4;
+  for(let i=0;i<this._n;i++)
+  {
+   let p=((i*(7+this.l))/this.d)
+   let stx=p*(this.endX-this.startX)+this.startX;
+   let sty=p*(this.endY-this.startY)+this.startY;
+   let enx=stx+(this.l*((this.endX-this.startX)/this.d));
+   let eny=sty+(this.l*((this.endY-this.startY)/this.d));
+   c2.beginPath();c2.lineTo(stx,sty);c2.lineTo(enx,eny);c2.stroke();
+  }
+  c2.lineWidth=1
+ }
+ Other.b.push(t);
+}
+function levelspawn()
+{
+ for(let i=0;i<levelb.length;i++){levelb[i].spawn();}
+}
+function selectLevel(name=""){for(let i of levelb){if(i.name==name){return i}}}
+function clearLevel(name="",stars=1,/*score=0*/)
+{
+ let lvl=selectLevel(name);
+ lvl.cleared=stars;
+ if(lvl.next)
+ {
+  for(let i of lvl.next){newLine([lvl.x,lvl.y],[i.x,i.y],i.name);}
+ }else{/*alert("this was the last level \n thanks for playing ;)")*/}
+}
+</script>
+<script>
+theCanvasFunction1();
+c.addEventListener("mousemove",event=>
+{
+ pointX=(event.x-c.offsetLeft);
+ pointY=(event.y-c.offsetTop);
+});
+c.addEventListener("mousedown",event=>
+{
+ pointX=(event.x-c.offsetLeft);
+ pointY=(event.y-c.offsetTop);
+ //alert("you clicked : "+pointX+","+pointY)
+ for(let i=0;i<levelb.length;i++)
+ {
+  if(calkdistans(pointX,pointY,levelb[i].x,levelb[i].y)<16*(levelb[i].cleared>=0?1:-1)){goTo(levelb[i].valu);}
+ }
+});
+FPS=30;
+function time()
+{ 
+ setTimeout(time,1000/FPS);
+ c2.fillStyle=groundColor;
+ c2.fillRect(0,0,c.width,c.height);
+ Other.sspawn();
+ levelspawn();
+}
+time();
+</script>
+<script src="./gameFiles/code/map.js"></script>
 </html>

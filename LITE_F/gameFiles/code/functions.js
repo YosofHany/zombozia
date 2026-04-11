@@ -20,6 +20,12 @@ function removFromArray(arr=[],indxs=[])
  }
  return result;
 }
+function goTo(path="",data="")
+{
+document.querySelector("body").innerHTML+='<form action="'+path+'" method="post" style="display:hidden" id="formIJustCreated"></form>';
+document.querySelector("#formIJustCreated").innerHTML+='<input type="hidden" name = "data"  value="'+data+'" readonly id ="data">'
+document.querySelector("#formIJustCreated").submit();
+};
 function damage (target , dmg){target.life-=dmg;}
 function boom(X,Y)
 {
@@ -185,17 +191,15 @@ function lazerPulse(ex,way,r,sita,target=null,power=50,dmg=null,color="#ff0700")
   }
  }
 }
-function victory()
+function victory(LVL="",S=1,WAIT=2023)
 {
- if(confirm("VICTORY !!! \n\n Return to menu ?"))
- {
-  document.querySelector("body").innerHTML+='<form action="../Game.html" style="display:hidden" id="formIJustCreated"></form>';
-  document.querySelector("#formIJustCreated").submit();
- }
- player.dx=0;player.dy=0;
+ storeClearedLevel(LVL,S);
+ setTimeout(()=>{
+ if(confirm("VICTORY  \n\n Open the map ?"))
+ {goTo("theMap.html");};player.dx=0;player.dy=0;
  let c=["a","s","d","w"]
  for (let i=0;i<4;i++){btns[c[i]]=false;}
-}
+ },WAIT);}
 function vapor(ex,way,dir=0,tim=90,size=16,dy=-0.5,amount=6,color="#cccccc")
 {
  for(let j=0;j<amount;j++)
@@ -211,4 +215,28 @@ function vapor(ex,way,dir=0,tim=90,size=16,dy=-0.5,amount=6,color="#cccccc")
   }
   Other.b.push(t);
  }
+}
+function arrayToString(aa=[]){let st="";for(let i of aa){st+=i[0]+","+i[1]+"~"};return(st);}
+function stItm(str,value=["levelName",3])//
+{
+ let found=false;let realArray=[];
+ let _1=str.split("~");_1.pop();for(let i of _1){realArray.push(i.split(","))}
+ for(let I of realArray){if(I[0]==value[0]){I[1]=value[1];found=true;}}
+ if(!found){let result=str;result+=value[0]+","+value[1]+"~";return result}
+ else{return arrayToString(realArray)}
+}
+function stringToArray(aa=""){let _1=aa.split("~");let _2=[];for(let i of _1){_2.push(i.split(","))};if(aa.endsWith("~")){_2.pop()};return _2}
+function parsItm(str,key){let _1=str.split("~");for(let i of _1){if(i.split(",")[0]==key){return i.split(",")[1]}};return null;}
+function storeClearedLevel(name="",stars=1,arrayName="clearedLevels1")
+{
+ let arr=localStorage.getItem(arrayName);//console.log(`cleared levels was = ${arr}`)
+ if(!arr)
+ {
+  arr=name+","+stars+"~";
+ }else
+ {
+  let found=false;
+  if((+parsItm(arr,name))<stars){arr=stItm(arr,[name,stars]);found=true;}
+ }
+  localStorage.setItem(arrayName,arr);//console.log(`now it's  ${arr}`)
 }

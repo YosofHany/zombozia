@@ -7,13 +7,12 @@ zox.hitbox=36;
 zox.photo="zox_L_0";
 zox.distractor=function(){
  lazerPulse(zox.x,zox.y,600,4.71,null,50,null,"#119900");
- getMoney(19,this.x,this.y);document.getElementById("bossLife").innerHTML='';document.getElementById("bossLife").style="display:none;";setTimeout(victory,2023);Mward.sspawn=function(){
+ getMoney(19,this.x,this.y);document.getElementById("bossLife").innerHTML='';document.getElementById("bossLife").style="display:none;";victory("levl 1",1);Mward.sspawn=function(){
  Mward.b.forEach(function(element,indix){
  if(element.valu<10){element.distrtactor();Mward.b=rfa(Mward.b,indix);}
  element.spawn()});}
 }
 zox.timeUp=230;zox.timeUp2=30;//timeUp is used in moves , timeUp2 is used in attacks
-
 zox._show=function(){c2.drawImage(eval(this.photo),this.x-38,this.y-50);}
 zox.moves=
 [
@@ -29,7 +28,6 @@ zox.move=zox.moves[0];
 zox.attacks=[
 function(){
 if(zox.timeUp2>0){zox.timeUp2-=(148/FPS);}else{
-
 var t=new Other();
 t.x=zox.x;t.y=zox.y;
 t.dx=2*(Math.round(zox.phase/2+0.1)+1)*(player.x-zox.x)/calkdistans(player.x,player.y,zox.x,zox.y);
@@ -47,10 +45,8 @@ Other.b.push(t);
 function(){},
 function(){},
 function(){}
-
 ];
 zox.attack=zox.attacks[0];
-
 zox.spawn=function()
 {
  zox.x+=zox.dx*(148/FPS);zox.y+=zox.dy*(148/FPS);
@@ -94,7 +90,7 @@ zox.appear=function()
  {
   for(var x=0;x<(Zomby.b.length);x++)
   {
-   if(Zomby.b[x].life<=1){Zomby.b[x].distractor();zombykilled++;Zomby.b=rfa(Zomby.b,x);zombykilled++;break}
+   if(Zomby.b[x].life<=1&&player.life>0){Zomby.b[x].distractor();zombykilled++;Zomby.b=rfa(Zomby.b,x);zombykilled++;break}
   }
   Zomby.b.forEach(function(element){element.spawn()});
  }
