@@ -1,0 +1,73 @@
+<html>
+ <head>
+  <title>
+   profile
+  </title>
+ </head>
+ <body style="text-align: center;background-color: black;">
+  <canvas style="border: 4px solid #fd1100"></canvas>
+ </body>
+ <script src="./gameFiles/code/canvas.js"></script>
+ <script src="./gameFiles/code/Other.js"></script>
+ <script src="./gameFiles/code/functions.js"></script>
+ <script src="./gameFiles/code/Button.js"></script>
+ <script src="gameFiles/code/DontDoThat.js"></script>
+<script>
+
+
+
+theCanvasFunction1(512,828,"#fd1100");
+var down=false;
+var downdOn={x:0,y:0}
+function on(b={},ex=pointX,way=pointY){return(ex>b.x&&ex<b.x+b.w&&way>b.y&&way<b.y+b.h)}
+function btnDown(b={}){if(!b.down){b.down=true;b.brdr=b.bg;b.bg="#000000";b.fg="#ffffff"}}
+function btnUp(b={}){if(b.down){b.down=false;b.brdr="#fd1100";b.bg="#ff6844";b.fg="#000000"}}
+handleMouse(()=>{
+downdOn.x=pointX;downdOn.y=pointY;
+down=true;
+btnDown(btn)
+},
+()=>
+{
+ console.log(down);
+ if(on(btn)&&down&&on(btn,downdOn.x,downdOn.y)){buttonOnClck()}
+ down=false;
+});
+let btn=new Other();btn.bg="#ff6844";btn.fg="#000000";btn.brdr="#fd1100";
+btn.h=50;btn.w=120;btn.text="new game";btn.down=false;btn.on=0;btn.dw=0;
+btn.x=c.width/2-btn.w/2;btn.y=c.height/2-btn.h/2;btn.minw=btn.w
+btn.spawn=function(){if(this.w+this.dw>=this.minw){this.w+=this.dw};this.dw*=0.9;
+ if(!on(this)){btnUp(this);if(this.on){this.on=0;this.dw=-6}}else{if(!this.on){this.on=1;this.dw=6}}
+c2.strokeStyle=this.brdr;c2.lineWidth=4;c2.fillStyle=this.bg;
+if((this.dw*this.dw)<0.001){this.dw=0}
+c2.fillRect(this.x,this.y,this.w,this.h);
+c2.strokeRect(this.x,this.y,this.w,this.h);
+c2.font="22px sans-serif";c2.fillStyle=this.fg;c2.fillText(this.text,this.x+this.w/2-50,this.y+this.h/2)
+this.x=c.width/2-this.w/2;this.y=c.height/2-this.h/2;
+}
+Other.b.push(btn)
+
+function buttonOnClck()
+{
+ if(confirm("delete the account and start a new game")){localStorage.clear();goTo("../Game.html")}
+}
+let strng=localStorage.getItem("clearedLevels1")
+let nLevels=strng?strng.split("~").length-1:0
+let txt=new Other();
+txt.spawn=function(){
+c2.fillStyle="#ffffff";
+c2.font="24px sans-serif";
+c2.fillStyle=this.fg;c2.fillText("cleared missions : "+nLevels,320,100);//console.log("txt is spawning")
+}
+Other.b.push(txt);
+function time()
+{ 
+ setTimeout(time,1000/FPS);
+ c2.fillStyle="#000000";
+ c2.fillRect(0,0,c.width,c.height);
+ Other.sspawn()
+}
+time();
+noContxtMenu()
+</script>
+</html>

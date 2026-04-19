@@ -8,6 +8,7 @@ THE MAP
 <script src="./gameFiles/code/functions.js"></script>
 <script src="./gameFiles/code/canvas.js"></script>
 <script src="./gameFiles/code/Other.js"></script>
+<script src="gameFiles/code/DontDoThat.js"></script>
 <script>
 let lighterColor=(st)=>
 {
@@ -99,21 +100,7 @@ function clearLevel(name="",stars=1,/*score=0*/)
 </script>
 <script>
 theCanvasFunction1();
-c.addEventListener("mousemove",event=>
-{
- pointX=(event.x-c.offsetLeft);
- pointY=(event.y-c.offsetTop);
-});
-c.addEventListener("mousedown",event=>
-{
- pointX=(event.x-c.offsetLeft);
- pointY=(event.y-c.offsetTop);
- //alert("you clicked : "+pointX+","+pointY)
- for(let i=0;i<levelb.length;i++)
- {
-  if(calkdistans(pointX,pointY,levelb[i].x,levelb[i].y)<16*(levelb[i].cleared>=0?1:-1)){goTo(levelb[i].valu);}
- }
-});
+handleMouse(()=>{for(let i=0;i<levelb.length;i++){if(calkdistans(pointX,pointY,levelb[i].x,levelb[i].y)<16*(levelb[i].cleared>=0?1:-1)){goTo(levelb[i].valu);}}})
 FPS=30;
 function time()
 { 
@@ -124,6 +111,7 @@ function time()
  levelspawn();
 }
 time();
+noContxtMenu()
 </script>
 <script src="./gameFiles/code/map.js"></script>
 </html>

@@ -1,3 +1,13 @@
+function handleMouse(onDwn=function(){},onUp=function(){})
+{
+c.addEventListener("mousemove",event=>
+{pointX=(event.x-c.offsetLeft);pointY=(event.y-c.offsetTop);});
+c.addEventListener("mousedown",event=>
+{pointX=(event.x-c.offsetLeft);pointY=(event.y-c.offsetTop);onDwn();});
+c.addEventListener("mouseup",event=>
+{pointX=(event.x-c.offsetLeft);pointY=(event.y-c.offsetTop);onUp();});
+}
+
 function theCanvasFunction1(hyt=512,wdth=828,clr="#085422",fps=40){
  globalThis.c =document.querySelector("canvas");
  c.width=wdth;

@@ -1,17 +1,19 @@
 const ratio = Math.round(100*(window.innerHeight/window.innerWidth))/100;
 
 
-// document.addEventListener("keydown",event=>{if(event.key=="F12"){
-// event.preventDefault();
-// }});
+ document.addEventListener("keydown",event=>{if(event.key=="F12"){
+ event.preventDefault();
+ }});
 
-// document.addEventListener("keydown",event=>{if(event.ctrlKey&&event.shiftKey){
-// event.preventDefault();
-// }});
-/*
+ document.addEventListener("keydown",event=>{if(event.ctrlKey&&event.shiftKey){
+ event.preventDefault();
+ }});
+function noContxtMenu()
+{
 document.addEventListener('contextmenu', event=>{
 event.preventDefault();handleRightClick();
-});
+});}
+ 
 
 function checkTheWindow()
 {
@@ -26,4 +28,4 @@ function checkTheWindow()
  }
 return false; 
 }
-*/
+
