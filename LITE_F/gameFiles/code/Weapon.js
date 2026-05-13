@@ -90,7 +90,7 @@ autoGun.spawn=function(){if(this.coolup==1&&this.cooldown<0){
 
 }else{this.cooldown-=(148/FPS);}}
 var lazer =new Weapon();lazer.name="lazer";lazer.price=80;
-lazer.cooldown=90;lazer.damage=90;lazer.aim="crosshair"
+lazer.cooldown=131;lazer.damage=90;lazer.aim="crosshair"
 lazer.fire=function(tx,ty)
 {
  if(lazer.cooldown<=lazer.coolup)

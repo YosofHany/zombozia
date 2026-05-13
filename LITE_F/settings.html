@@ -1,0 +1,70 @@
+<html>
+<head>
+  <title>
+   settings
+  </title>
+ </head>
+ <body style="text-align: center;background-color: black;">
+  <canvas style="border: 4px solid #fd1100"></canvas>
+ </body>
+ <script src="./gameFiles/code/canvas.js"></script>
+ <script src="./gameFiles/code/Other.js"></script>
+ <script src="./gameFiles/code/functions.js"></script>
+ <script src="./gameFiles/code/canvasButton.js"></script>
+ <script src="gameFiles/code/DontDoThat.js"></script>
+<script>
+ theCanvasFunction1();
+ handleMouse(canvasButton.OND,canvasButton.ONU);
+ exitButton(39,480)
+ let lsd1=new Other();lsd1.w=500;lsd1.x=c.width/2;lsd1.y=90
+ lsd1.spawn=function(){
+ c2.strokeStyle="#cccccc";c2.fillStyle="#cccccc";let A=["30","40","50","60"]
+ for(let i=-0.5;i<0.7;i+=0.33){let P=this.x+i*this.w
+  c2.beginPath();
+  c2.arc(P,this.y,10,0,6.2);
+  c2.closePath();c2.stroke();c2.fill();c2.fillText(A[Math.round(i*3+1.5)],P-11,this.y+38);}
+  c2.fillRect(this.x-this.w/2,this.y-5,this.w,10);c2.font="32px sans-serif";c2.fillText("FPS",this.x-21,this.y-56);}
+ 
+  var options={FPS:40,};
+  if(localStorage.getItem("settings")){options=stringToObject(localStorage.getItem("settings"));}
+  else{localStorage.setItem("settings","FPS,40~")}
+
+ var ptr=new Other();ptr.w=40;ptr.h=20;ptr.x=(lsd1.x-lsd1.w/2)+(+((options.FPS/10)-3)*lsd1.w/3);ptr.y=lsd1.y-39;//0.9047619
+ ptr.target=[ptr.x,ptr.y]
+ ptr.spawn=function(){let dx=((this.target[0]-this.x)/30)*(148/FPS);this.x+=dx;
+  let x=this.x,y=this.y,w=this.w,h=this.h;
+ this.p=[[x+w/2,y-h/3],[x+((w/2)-0.26315*w),y-h/6],[x+((w/2)-0.26315*w),y+h/3],[x,y+(2/3)*h],[x-((w/2)-0.26315*w),y+h/3],[x-((w/2)-0.26315*w),y-h/6],[x-w/2,y-h/3]]
+ c2.beginPath();c2.lineWidth=4;c2.strokeStyle="#fd1100";
+ for(let i of this.p){c2.lineTo(i[0],i[1])};c2.stroke();c2.beginPath();
+ c2.lineTo(x+((w/2)-0.26315*w),y+h/3);
+ c2.lineTo(x+((w/2)-0.26315*w),y-h/6);
+ c2.lineTo(x,y);
+ c2.lineTo(x-((w/2)-0.26315*w),y-h/6);
+ c2.lineTo(x-((w/2)-0.26315*w),y+h/3);
+ c2.lineTo(x,y+(2/3)*h);
+ c2.closePath();c2.fillStyle="#ff6844";c2.fill()}
+
+      /***/
+      let __sho=function(p1=1){return function(){let x=this.x,y=this.y,w=this.w,h=this.h;
+      let po=[[x-(w/2)*p1,y-h/2],[x+(w/2-10)*p1,y-h/2],[x+(w/2)*p1,y],[x+(w/2-10)*p1,y+h/2],[x-(w/2)*p1,y+h/2]]
+      c2.beginPath();for(let iIi of po){c2.lineTo(iIi[0],iIi[1])};c2.closePath();c2.fillStyle=this.color;c2.strokeStyle=this.brdr;c2.fill();c2.stroke();}}
+      let clk=function(){let pl=+options.FPS+this.text;
+       if(pl<=60&&pl>=30){ptr.target[0]+=(this.text*(lsd1.w/30));options.FPS=+options.FPS+this.text}}
+ let X=lsd1.w/2+49;
+ var incr=canvasButton.add([lsd1.x+X,lsd1.y,34,34,"#ff6844",,,,__sho(),clk,+10]);
+ var decr=canvasButton.add([lsd1.x-X,lsd1.y,34,34,"#ff6844",,,,__sho(-1),clk,-10]);
+ canvasButton.add([lsd1.x,467,,,"#ff6844",,,,,function(){
+  localStorage.setItem("settings",arrayToString(Object.entries(options)));goTo("./settings.html")
+ },"Apply"]);
+
+ Other.b.push(lsd1,ptr)
+ function time(){ 
+ setTimeout(time,1000/FPS);
+ c2.fillStyle="#000000";
+ c2.fillRect(0,0,c.width,c.height);
+ Other.sspawn()
+ canvasButton.sspawn();
+}
+time();
+noContxtMenu()
+</script></html>

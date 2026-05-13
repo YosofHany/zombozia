@@ -8,6 +8,7 @@ THE MAP
 <script src="./gameFiles/code/functions.js"></script>
 <script src="./gameFiles/code/canvas.js"></script>
 <script src="./gameFiles/code/Other.js"></script>
+<script src="./gameFiles/code/canvasButton.js"></script>
 <script src="gameFiles/code/DontDoThat.js"></script>
 <script>
 let lighterColor=(st)=>
@@ -97,9 +98,11 @@ function clearLevel(name="",stars=1,/*score=0*/)
   for(let i of lvl.next){newLine([lvl.x,lvl.y],[i.x,i.y],i.name);}
  }else{/*alert("this was the last level \n thanks for playing ;)")*/}
 }
+exitButton(39,480).onClck=function(){goTo("../Game.html")};
 </script>
 <script>
 theCanvasFunction1();
+handleMouse(canvasButton.OND,canvasButton.ONU);
 handleMouse(()=>{for(let i=0;i<levelb.length;i++){if(calkdistans(pointX,pointY,levelb[i].x,levelb[i].y)<16*(levelb[i].cleared>=0?1:-1)){goTo(levelb[i].valu);}}})
 FPS=30;
 function time()
@@ -109,9 +112,8 @@ function time()
  c2.fillRect(0,0,c.width,c.height);
  Other.sspawn();
  levelspawn();
-}
-time();
-noContxtMenu()
+ canvasButton.sspawn();
+}time();noContxtMenu()
 </script>
 <script src="./gameFiles/code/map.js"></script>
 </html>

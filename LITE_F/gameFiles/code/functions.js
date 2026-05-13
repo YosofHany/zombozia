@@ -183,7 +183,6 @@ function lazerPulse(ex,way,r,sita,target=null,power=50,dmg=null,color="#ff0700")
     let s1MinusSita=Math.min(Math.abs(S1-sita),Math.abs((Math.min(S1,sita))-(Math.max(S1,sita)-2*Math.PI)));
     if(s1MinusSita<0.7)
     {
-     console.log(sita_2_cor(sita)[0]);
      if(target.b[n].life<=dmg){vapor(target.b[n].x,target.b[n].y,sita_2_cor(1,sita)[0]*4,120);}
      damage(target.b[n],dmg);
     }
@@ -226,6 +225,7 @@ function stItm(str,value=["levelName",3])//
  else{return arrayToString(realArray)}
 }
 function stringToArray(aa=""){let _1=aa.split("~");let _2=[];for(let i of _1){_2.push(i.split(","))};if(aa.endsWith("~")){_2.pop()};return _2}
+function stringToObject(aa=""){let _=stringToArray(aa);let result={};for(let i of _){result[i[0]]=i[1]};return result;}
 function parsItm(str,key){let _1=str.split("~");for(let i of _1){if(i.split(",")[0]==key){return i.split(",")[1]}};return null;}
 function storeClearedLevel(name="",stars=1,arrayName="clearedLevels1")
 {

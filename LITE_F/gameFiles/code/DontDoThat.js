@@ -1,20 +1,12 @@
 const ratio = Math.round(100*(window.innerHeight/window.innerWidth))/100;
-
-
  document.addEventListener("keydown",event=>{if(event.key=="F12"){
- event.preventDefault();
- }});
-
+ event.preventDefault();}});
  document.addEventListener("keydown",event=>{if(event.ctrlKey&&event.shiftKey){
- event.preventDefault();
- }});
+ event.preventDefault();}});
 function noContxtMenu()
 {
 document.addEventListener('contextmenu', event=>{
-event.preventDefault();handleRightClick();
-});}
- 
-
+event.preventDefault();handleRightClick();});}
 function checkTheWindow()
 {
  if(Math.round(100*(window.innerHeight/window.innerWidth))/100!=ratio)
