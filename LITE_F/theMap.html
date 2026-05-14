@@ -27,7 +27,7 @@ function newLevel(ex,way,name,valu,cleared=-1,whereToPutTheName=[20,20],color="#
  let t=new Other();t.x=ex;t.y=way;t.valu=valu;t.name=name;t.color=color;t.cleared=cleared;t._=whereToPutTheName;
  t.color2=lighterColor(t.color,2);t.nameColor=nameColor;
  t.spawn=function()
- {
+ {c2.lineWidth=1;
   if(this.cleared>-2)
   {
    if(this.cleared>=0)

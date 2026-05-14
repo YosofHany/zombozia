@@ -2,14 +2,14 @@ var down=false;
 var downdOn={x:0,y:0}
 function on(b={},ex=pointX,way=pointY){return((ex>(b.x-b.w/2))&&ex<b.x+b.w/2&&way>b.y-b.h/2&&way<b.y+b.h/2)}
 class canvasButton extends Other
-{h=50;w=120;text="button";down=false;on=false;clr2="#ffffff";
+{h=50;w=120;minw=120;maxw=200;text="button";down=false;on=false;clr2="#ffffff";
  onDown()
  {if(!this.down){
    this.down=true;
    let tem1=this.clr2;this.clr2=this.brdr;
    this.brdr=this.color;
    this.color=this.fg;
-   /*this.fg=tem1;console.log("you just pressed "+this.text+`\n clr2=${this.clr2}\n color=${this.color}\n brdr=${this.brdr}\n fg=${this.fg}\n`);*/
+   this.fg=tem1;/*console.log("you just pressed "+this.text+`\n clr2=${this.clr2}\n color=${this.color}\n brdr=${this.brdr}\n fg=${this.fg}\n`);*/
   }}
  onClck(){console.log(this.text);}
  onUp(){if(this.down)
@@ -20,8 +20,8 @@ class canvasButton extends Other
   this.color=this.brdr;
   this.brdr=tem1;
  }}
- onLeav(){this.dx=-6;if(on(this)&&down&&on(this,downdOn.x,downdOn.y)){this.onClck()}}
- onEnter(){this.dx=6}
+ onLeav(){this.dx=-2;this.on=false;this.onUp()}
+ onEntr(){this.dx=2;this.on=true}
  _show()
  {let X=this.x-this.w/2,Y=this.y-this.h/2;
   c2.fillStyle=this.color;c2.strokeStyle=this.brdr;
@@ -30,12 +30,14 @@ class canvasButton extends Other
   c2.strokeRect(X,Y,this.w,this.h);
   c2.font="22px sans-serif";c2.fillStyle=this.fg;c2.fillText(this.text,X+this.w/2-50,this.y+5);
   c2.strokeStyle="#000000";
- }
+ }//what is this ￼￼￼￼••••
  brdr="#fd1100"
  fg="#000000"
  spawn=function()
- {if(this.w+this.dx>=this.minw){this.w+=this.dx};this.dx*=0.9;
+ {if(this.w+this.dx>=this.minw&&this.w+this.dx<=this.maxw){this.w+=this.dx*(148/FPS)};this.dx+= -(0.04*this.dx*(148/FPS));
   this._show();
+  if(!this.on&&on(this)){this.onEntr();}
+  if(this.on&&!on(this)){this.onLeav();}
   this.bonus();}
  static b=[];
  static add(ar=[,,]){var t=new canvasButton();let ARGS=["x","y","w","h","color","brdr","clr2","fg",'_show','onClck',"text"];
@@ -57,7 +59,7 @@ function exitButton(ex,Y,w=50,h=27)
   c2.font='26px sans-serif';c2.fillStyle=this.brdr;c2.fillText("out",ex+w/2+9,Y+7);c2.strokeStyle="#000000";}
  ,function(){goTo("../Game.html")}]).p=[[ex-w/2,Y],[(ex-w/2)+10,Y-h/2],[ex+w/2,Y-h/2],[(ex+w/2)-10,Y],[ex+w/2,Y+h/2],[(ex-w/2)+10,Y+h/2]];return tt;}
 
- function pauseButton(ex,wy,l=34,dist="theMap.html")
+ function pauseButton(ex,wy,dist="theMap.html",l=34)
 {
  let t=canvasButton.add([ex,wy,l,l,"#dddddd","#222222",/*clr2*/,"#222222",
   function(){c2.fillStyle=this.color;c2.strokeStyle=this.brdr;

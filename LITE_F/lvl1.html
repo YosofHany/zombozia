@@ -2,8 +2,6 @@
 <html>
 <!--
 the player character should take ~ 3.6 seconds to run the map from left to right (785 pixls)
-player speed=1.5  , vilocity = 222   px/s
-zomby speed =1.2  , vilocity = 177.6 px/s
 -->
 <link rel="icon" href="gameFiles/icon.png" >
 <link rel="stylesheet" href="./gameFiles/code/b.css">
@@ -26,10 +24,13 @@ zomby speed =1.2  , vilocity = 177.6 px/s
 <script src="gameFiles/code/canvas.js"></script>
 <script src="gameFiles/code/Other.js"></script>
 <script src="gameFiles/code/Weapon.js"></script>
+<script src="gameFiles/code/canvasButton.js"></script>
 <script>
 document.body.innerHTML=playerStatusFunction()+document.body.innerHTML;
 theCanvasFunction();
-let side =document.getElementById("side")
+handleMouse(canvasButton.OND,canvasButton.ONU);
+pauseButton(33,30,"../Game.html");
+let side=document.getElementById("side")
 for(w of Weapon.pickedWepons){side.innerHTML+=weaponFunction(w)}
 let camx=0;
 let camy=0;
@@ -49,7 +50,7 @@ else{alert(`\n         DEAD \n\nmoney collected : `+player.mony+"\nzombies kille
  Zomby.sspawn(2000,1700);
  //Zomby.sspawn(Infinity,1700);
  bullet.sspawn();
- player.spawn();
+ player.spawn();canvasButton.sspawn();
 //checkTheWindow();
 }
 time();
