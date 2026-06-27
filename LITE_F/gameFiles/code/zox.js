@@ -7,10 +7,7 @@ zox.hitbox=36;
 zox.photo="zox_L_0";
 zox.distractor=function(){
  lazerPulse(zox.x,zox.y,600,4.71,null,50,null,"#119900");
- getMoney(19,this.x,this.y);document.getElementById("bossLife").innerHTML='';document.getElementById("bossLife").style="display:none;";victory("levl 1",1);Mward.sspawn=function(){
- Mward.b.forEach(function(element,indix){
- if(element.valu<10){element.distrtactor();Mward.b=rfa(Mward.b,indix);}
- element.spawn()});}
+ getMoney(19,this.x,this.y);document.getElementById("bossLife").innerHTML='';document.getElementById("bossLife").style="display:none;";victory("levl 1",1);
 }
 zox.timeUp=230;zox.timeUp2=30;//timeUp is used in moves , timeUp2 is used in attacks
 zox._show=function(){c2.drawImage(eval(this.photo),this.x-38,this.y-50);}
@@ -35,7 +32,7 @@ t.dy=2*(Math.round(zox.phase/2+0.1)+1)*(player.y-zox.y)/calkdistans(player.x,pla
 t.life=8;
 t.bonus=function()
 {
- if(Math.abs(this.x-player.x)<eval(player.photo).width/2&&Math.abs(this.y-player.y)<eval(player.photo).height/2){player.life-=4;this.life=0;}
+ if(Math.abs(this.x-player.x)<eval(player.photo).width/2&&Math.abs(this.y-player.y)<eval(player.photo).height/2){damage(player,4,true);this.life=0;}
  if(calkdistans(this.x,this.y,zox.x,zox.y)>2000){this.life=0;}
 }
 Other.b.push(t);
@@ -64,7 +61,7 @@ zox.spawn=function()
   }
   for(let i=0;i<(2*zox.phase+1);i++){wakeupZomby(zox.x+sita_2_cor(100,Math.PI*2*(i/(2*zox.phase+1)))[0],
   zox.y+sita_2_cor(100,Math.PI*2*(i/(2*zox.phase+1)))[1],
-  function(){orbit(this,"zox");this.bounus=function(){if(calkdistans(this.x,this.y,player.x,player.y)<30){player.life-=0.09*(148/FPS)}}})}
+  function(){orbit(this,zox);this.bounus=function(){if(calkdistans(this.x,this.y,player.x,player.y)<30){player.life-=0.09*(148/FPS)}}})}
  }
 }
  zox.photo="zox_"+(zox.bodyx<0?"L":"R")+"_"+zox.photo.split("_")[2]
@@ -94,4 +91,7 @@ zox.appear=function()
   }
   Zomby.b.forEach(function(element){element.spawn()});
  }
+ Mward.sspawn=function(){Mward.b.forEach(function(element,indix){
+ if(element.valu<10){element.distrtactor();Mward.b=rfa(Mward.b,indix);}
+ element.spawn()});}
 }

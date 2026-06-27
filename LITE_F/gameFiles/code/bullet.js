@@ -28,7 +28,7 @@ class bullet
     {
      if(calkdistans(Zomby.b[x].x,Zomby.b[x].y,bullet.b[a].x,bullet.b[a].y)<Zomby.b[x].hitbox&&(bullet.b[a].life>0))
      {
-      damage(Zomby.b[x],(bullet.b[a].damage));
+      damage(Zomby.b[x],(bullet.b[a].damage),true);
       bullet.b[a].distractor();
       dead.push(a);
       bullet.b[a].life=0;
@@ -55,7 +55,7 @@ static add(ex,way,DX,DY,DMG=30,usr,r=10){var t=new Rocket();t.x=ex;t.y=way;t.dx=
 distractor(){boom(this.x,this.y);
   var targets=4;
   for(var g=Zomby.b.length;g>0;g--){
-  if(calkdistans(this.x,this.y,Zomby.b[g-1].x,Zomby.b[g-1].y)<79){damage(Zomby.b[g-1],this.damage);targets--;}
+  if(calkdistans(this.x,this.y,Zomby.b[g-1].x,Zomby.b[g-1].y)<79){damage(Zomby.b[g-1],this.damage,true);targets--;}
   if(targets<1){g=0}
   }}
 

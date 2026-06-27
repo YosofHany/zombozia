@@ -1,4 +1,4 @@
-var player= {
+var player= {class:"player",
  dx  :0,
  dy  :0,
  mony:0,

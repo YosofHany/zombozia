@@ -26,7 +26,13 @@ document.querySelector("body").innerHTML+='<form action="'+path+'" method="post"
 document.querySelector("#formIJustCreated").innerHTML+='<input type="hidden" name = "data"  value="'+data+'" readonly id ="data">'
 document.querySelector("#formIJustCreated").submit();
 };
-function damage (target , dmg){target.life-=dmg;}
+function damage (target,dmg,effect=false){target.life-=dmg;let fl="#cc0f00",strk=fl
+if(target.class=="player"||target.class=="m_building"){fl="#111111";strk="#ffffff"}
+if(effect){let t=new Other();t.x=target.x;t.y=target.y;t.dx=2*Math.random()-1;t.dy=-6+Math.random()
+t.spawn=function(){c2.font='30px sans-serif';c2.fillStyle=fl;c2.strokeStyle=strk;c2.fillText(`${dmg}`,this.x,this.y);c2.strokeText(`${dmg}`,this.x,this.y);
+ this.x+=this.dx*(148/FPS);this.y+=this.dy*(148/FPS);this.dy+=0.1*(148/FPS);if(this.y>window.innerHeight){this.life=(-1)}
+ };Other.b.push(t)
+}}
 function boom(X,Y)
 {
  for(let v= 0;v<5;v++)
@@ -184,7 +190,7 @@ function lazerPulse(ex,way,r,sita,target=null,power=50,dmg=null,color="#ff0700")
     if(s1MinusSita<0.7)
     {
      if(target.b[n].life<=dmg){vapor(target.b[n].x,target.b[n].y,sita_2_cor(1,sita)[0]*4,120);}
-     damage(target.b[n],dmg);
+     damage(target.b[n],dmg,true);
     }
    }
   }
@@ -238,5 +244,10 @@ function storeClearedLevel(name="",stars=1,arrayName="clearedLevels1")
   let found=false;
   if((+parsItm(arr,name))<stars){arr=stItm(arr,[name,stars]);found=true;}
  }
-  localStorage.setItem(arrayName,arr);//console.log(`now it's  ${arr}`)
-}
+  localStorage.setItem(arrayName,arr);}
+  function closest(obj,arr){
+   if(arr.length==0){return undefined;}
+   let res=arr[0];let d = calkdistans(obj.x,obj.y,res.x,res.y);
+   for(i of arr){let dd=calkdistans(obj.x,obj.y,i.x,i.y);
+  if(dd<d){d=dd;res=i}};return res;
+  }

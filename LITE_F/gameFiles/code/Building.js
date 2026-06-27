@@ -11,16 +11,19 @@ class Building
  }
  static b = [];
  static sspawn=function()
- {
+ {let deadPeople=[];
   for(let i=0;i<Building.b.length;i++)
   {
-   if(Building.b[i].life>0){Building.b[i].spawn();}
-   else{Building.b[i]=null;}
-   
+   Building.b[i].spawn();
+   if(Building.b[i].life<=1)
+  {
+   //Building.b[i].distractor();
+   deadPeople.push(i);
   }
+  };Building.b=removFromArray(Building.b,deadPeople);
  }
  static base=class
- {
+ {class="m_building";
   name="tower"
   photo;
   levl=1;
